@@ -4,11 +4,11 @@ function addGlitchEffect() {
     if (h1 && !h1.querySelector('.glitch-word')) {
         const html = h1.innerHTML;
         h1.innerHTML = html.replace(
-            'кодить',
-            '<span class="glitch-word" data-text="кодить">кодить</span>'
+            'Разрабатывай',
+            '<span class="glitch-word" data-text="Разрабатывай">Разрабатывай</span>'
         ).replace(
-            'зарабатывать',
-            '<span class="glitch-word" data-text="зарабатывать">зарабатывать</span>'
+            'зарабатывай',
+            '<span class="glitch-word" data-text="зарабатывай">зарабатывай</span>'
         );
     }
 }
@@ -58,6 +58,7 @@ function createMatrixRain() {
         matrixContainer.appendChild(column);
     }
     document.body.appendChild(matrixContainer);
+    console.log('Матричный фон создан');
 }
 
 // ========== ТЕЛЕПОРТАЦИЯ БЛОКА ==========
@@ -185,9 +186,8 @@ function setupHeroImageTeleport() {
             }
         }
     });
+    console.log('Телепортация настроена');
 }
-
-
 
 // ========== ПЛАВНЫЙ СКРОЛЛ ==========
 function setupSmoothScroll() {
@@ -202,108 +202,194 @@ function setupSmoothScroll() {
             }
         });
     });
+    console.log('Плавный скролл настроен');
 }
 
+// ========== МОТИВИРУЮЩИЕ СЛЕНГИ С ВОЗМОЖНОСТЬЮ СВОЕГО ЗВУКА ==========
+let soundEnabled = true;
+let customAudio = null;
 
+// Настройте свой звук здесь - поместите файл в папку sounds и укажите путь
+const CUSTOM_SOUND_URL = 'sounds/notification.mp3'; // Замените на путь к вашему звуку
+const USE_CUSTOM_SOUND = true; // Установите true, если хотите использовать свой звук
 
-// ========== НАБЛЮДАТЕЛЬ ДЛЯ ПОЯВЛЕНИЯ БЛОКОВ ==========
-function setupIntersectionObserver() {
-    const elements = document.querySelectorAll(
-        '.target-item, .state-card, .skill-item, .career-card, .stage-card, .competency-item, .faq-item, .exam-row'
-    );
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+function setupMotivationSlang() {
+    const slangs = [
+        { text: "🚀 Ты справишься!", side: "left" },
+        { text: "💪 У тебя получится!", side: "right" },
+        { text: "⭐ Ты сможешь!", side: "left" },
+        { text: "🔥 Вперёд к успеху!", side: "right" },
+        { text: "🎯 Ты на правильном пути!", side: "left" },
+        { text: "✨ Ты станешь профессионалом!", side: "right" },
+        { text: "⚡ Не сдавайся!", side: "left" },
+        { text: "🏆 Ты лучший!", side: "right" },
+        { text: "💡 Гениальная идея!", side: "left" },
+        { text: "🌟 Звёздный час близко!", side: "right" }
+    ];
+
+    let lastSide = null;
+    let audioContext = null;
+    let isAudioInitialized = false;
+
+    // Создаём кнопку включения/выключения звука
+    const soundToggle = document.createElement('div');
+    soundToggle.className = 'sound-toggle';
+    soundToggle.innerHTML = '🔊';
+    soundToggle.title = 'Включить/выключить звук';
+    document.body.appendChild(soundToggle);
+
+    // Загружаем пользовательский звук если нужно
+    if (USE_CUSTOM_SOUND && CUSTOM_SOUND_URL) {
+        customAudio = new Audio(CUSTOM_SOUND_URL);
+        customAudio.volume = 0.3;
+        console.log('Загружен пользовательский звук');
+    }
+
+    function initAudio() {
+        if (!isAudioInitialized && !USE_CUSTOM_SOUND) {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                isAudioInitialized = true;
+                console.log('Аудио контекст инициализирован');
+            } catch(e) {
+                console.log('Звук не поддерживается браузером');
             }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }
+    }
 
-    elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(el);
+    function playSound() {
+        if (!soundEnabled) return;
+
+        if (USE_CUSTOM_SOUND && customAudio) {
+            customAudio.currentTime = 0;
+            customAudio.play().catch(e => console.log('Ошибка воспроизведения звука:', e));
+        } else if (audioContext && isAudioInitialized) {
+            try {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.value = 880;
+                gainNode.gain.value = 0.1;
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.3);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch(e) {
+                console.log('Ошибка воспроизведения звука:', e);
+            }
+        }
+    }
+
+    soundToggle.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        soundToggle.innerHTML = soundEnabled ? '🔊' : '🔇';
+        soundToggle.title = soundEnabled ? 'Выключить звук' : 'Включить звук';
+
+        if (!isAudioInitialized && soundEnabled && !USE_CUSTOM_SOUND) {
+            initAudio();
+        }
     });
+
+    function showSlang() {
+        if (!isAudioInitialized && soundEnabled && !USE_CUSTOM_SOUND) {
+            initAudio();
+        }
+
+        let availableSlangs = slangs;
+        if (lastSide) {
+            availableSlangs = slangs.filter(s => s.side !== lastSide);
+        }
+
+        const slang = availableSlangs[Math.floor(Math.random() * availableSlangs.length)];
+        lastSide = slang.side;
+
+        const toast = document.createElement('div');
+        toast.className = `motivation-toast ${slang.side}`;
+        toast.textContent = slang.text;
+        document.body.appendChild(toast);
+
+        console.log('Показан сленг:', slang.text);
+
+        if (soundEnabled) {
+            playSound();
+        }
+
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 3000);
+    }
+
+    function scheduleNext() {
+        const delay = 15000 + Math.random() * 10000;
+        setTimeout(() => {
+            showSlang();
+            scheduleNext();
+        }, delay);
+    }
+
+    scheduleNext();
+    console.log('Мотивирующие сленги активированы! Появляются каждые 15-25 секунд');
 }
 
-// ========== СЕКЦИЯ "ЧТО ИЗУЧАЕМ" - СЕТКА И БЕГУЩАЯ СТРОКА ==========
+// ========== БЕГУЩАЯ СТРОКА ==========
 function setupSkillsViewToggle() {
     const skillsSection = document.querySelector('.skills-section');
     const skillsGrid = document.querySelector('.skills-grid');
 
-    if (!skillsGrid) return;
+    if (!skillsGrid) {
+        console.log('skills-grid не найден');
+        return;
+    }
 
-    // Данные для бегущей строки (дублируем для бесконечной прокрутки)
+    // Проверяем, не добавлены ли уже кнопки
+    if (document.querySelector('.view-toggle')) {
+        console.log('Кнопки уже добавлены');
+        return;
+    }
+
     const skillsData = [
-        {
-            emoji: '🤖',
-            title: 'Искусственный интеллект',
-            description: 'Нейросети, машинное обучение, компьютерное зрение, обработка естественного языка'
-        },
-        {
-            emoji: '☁️',
-            title: 'Облачные технологии',
-            description: 'AWS, Yandex Cloud, Docker, Kubernetes, развертывание в облаке'
-        },
-        {
-            emoji: '🔐',
-            title: 'Информационная безопасность',
-            description: 'Криптография, защита данных, анализ уязвимостей, кибербезопасность'
-        },
-        {
-            emoji: '📱',
-            title: 'Мобильная разработка',
-            description: 'iOS, Android, Flutter, Kotlin, Swift, кроссплатформенные приложения'
-        },
-        {
-            emoji: '🌐',
-            title: 'Web-разработка',
-            description: 'React, Vue, Node.js, современные веб-приложения, API'
-        },
-        {
-            emoji: '🏢',
-            title: 'Корпоративные системы',
-            description: 'ERP/CRM, 1С, управление бизнес-процессами, интеграция систем'
-        }
+        { emoji: '🤖', title: 'Искусственный интеллект', description: 'Нейросети, машинное обучение, компьютерное зрение' },
+        { emoji: '☁️', title: 'Облачные технологии', description: 'AWS, Yandex Cloud, Docker, Kubernetes' },
+        { emoji: '🔐', title: 'Информационная безопасность', description: 'Криптография, защита данных, кибербезопасность' },
+        { emoji: '📱', title: 'Мобильная разработка', description: 'iOS, Android, Flutter, Kotlin, Swift' },
+        { emoji: '🌐', title: 'Web-разработка', description: 'React, Vue, Node.js, современные веб-приложения' },
+        { emoji: '🏢', title: 'Корпоративные системы', description: 'ERP/CRM, 1С, управление бизнес-процессами' }
     ];
 
-    // Создаем контейнер для кнопок
+    // Создаём кнопки переключения
     const toggleContainer = document.createElement('div');
     toggleContainer.className = 'view-toggle';
 
-    // Создаем кнопку для сетки (активна по умолчанию)
     const gridBtn = document.createElement('div');
     gridBtn.className = 'toggle-btn active';
     gridBtn.innerHTML = '<span class="icon">▦</span> Сетка';
-    gridBtn.setAttribute('data-view', 'grid');
 
-    // Создаем кнопку для бегущей строки
     const marqueeBtn = document.createElement('div');
     marqueeBtn.className = 'toggle-btn';
     marqueeBtn.innerHTML = '<span class="icon">◀ ▶</span> Бегущая строка';
-    marqueeBtn.setAttribute('data-view', 'marquee');
 
     toggleContainer.appendChild(gridBtn);
     toggleContainer.appendChild(marqueeBtn);
 
-    // Вставляем кнопки перед skills-grid
     const container = skillsSection.querySelector('.container');
     container.insertBefore(toggleContainer, skillsGrid);
 
-    // Создаем контейнер для бегущей строки
+    // Создаём бегущую строку
     const marqueeContainer = document.createElement('div');
     marqueeContainer.className = 'skills-marquee';
 
-    // Создаем структуру бегущей строки (дублируем элементы для бесконечности)
     const createMarqueeItems = () => {
         let items = '';
-        // Дублируем элементы 3 раза для плавной бесконечной прокрутки
+        // Дублируем 3 раза для бесконечной прокрутки
         for (let i = 0; i < 3; i++) {
-            skillsData.forEach((skill, index) => {
+            skillsData.forEach((skill) => {
                 items += `
-                    <div class="marquee-item" data-skill="${skill.title}">
+                    <div class="marquee-item">
                         <div class="emoji">${skill.emoji}</div>
                         <h3>${skill.title}</h3>
                         <p>${skill.description}</p>
@@ -324,279 +410,156 @@ function setupSkillsViewToggle() {
             <div class="marquee-btn pause-btn" title="Пауза/Старт">⏸</div>
             <div class="speed-control">
                 <label>⚡ Скорость</label>
-                <input type="range" min="10" max="60" value="30" step="1" class="speed-slider">
+                <input type="range" min="1" max="100" value="30" step="1" class="speed-slider">
                 <span class="speed-value">30</span>
             </div>
+            <div class="reset-speed-btn" title="Сбросить скорость">⟳ Сброс</div>
         </div>
     `;
 
     container.appendChild(marqueeContainer);
 
-    // Переменные для управления бегущей строкой
+    // Управление бегущей строкой
     let marqueeTrack = marqueeContainer.querySelector('.marquee-track');
     let isPaused = false;
     let currentSpeed = 30;
-    let animation = null;
+    let animationId = null;
+    let currentPosition = 0;
+    let lastTimestamp = null;
 
-    // Функция обновления анимации
-    function updateMarqueeAnimation() {
-        if (marqueeTrack) {
-            // Останавливаем текущую анимацию
-            marqueeTrack.style.animation = 'none';
-            marqueeTrack.offsetHeight; // Принудительный рефлоу
+    function animate(timestamp) {
+        if (!lastTimestamp) {
+            lastTimestamp = timestamp;
+            animationId = requestAnimationFrame(animate);
+            return;
+        }
 
-            // Запускаем новую анимацию
-            if (!isPaused) {
-                marqueeTrack.style.animation = `marqueeScroll ${currentSpeed}s linear infinite`;
-            } else {
-                marqueeTrack.style.animation = 'none';
-            }
+        const delta = Math.min(0.05, (timestamp - lastTimestamp) / 1000);
+        if (delta > 0 && !isPaused) {
+            const totalWidth = marqueeTrack.scrollWidth / 3; // Делим на количество дублей
+            // Скорость: от 20 до 300 пикселей в секунду
+            const speedPxPerSecond = 20 + (currentSpeed / 100) * 280;
+
+            currentPosition = (currentPosition + speedPxPerSecond * delta) % totalWidth;
+            marqueeTrack.style.transform = `translateX(-${currentPosition}px)`;
+        }
+
+        lastTimestamp = timestamp;
+        animationId = requestAnimationFrame(animate);
+    }
+
+    function startAnimation() {
+        isPaused = false;
+        if (!animationId) {
+            lastTimestamp = null;
+            animationId = requestAnimationFrame(animate);
         }
     }
 
-    // Обработчик для кнопки паузы
-    const pauseBtn = marqueeContainer.querySelector('.pause-btn');
-    pauseBtn.addEventListener('click', () => {
-        isPaused = !isPaused;
-        if (isPaused) {
-            pauseBtn.innerHTML = '▶';
-            pauseBtn.title = 'Запустить';
-            marqueeTrack.style.animationPlayState = 'paused';
-        } else {
-            pauseBtn.innerHTML = '⏸';
-            pauseBtn.title = 'Пауза';
-            marqueeTrack.style.animationPlayState = 'running';
-        }
-    });
+    function stopAnimation() {
+        isPaused = true;
+    }
 
-    // Обработчик для регулировки скорости
+    // Получаем элементы управления
+    const pauseBtn = marqueeContainer.querySelector('.pause-btn');
     const speedSlider = marqueeContainer.querySelector('.speed-slider');
     const speedValue = marqueeContainer.querySelector('.speed-value');
+    const resetBtn = marqueeContainer.querySelector('.reset-speed-btn');
 
-    speedSlider.addEventListener('input', (e) => {
-        currentSpeed = e.target.value;
-        speedValue.textContent = currentSpeed;
-        if (!isPaused) {
-            updateMarqueeAnimation();
+    // Обработчик паузы
+    pauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            startAnimation();
+            pauseBtn.innerHTML = '⏸';
+            pauseBtn.title = 'Пауза';
+        } else {
+            stopAnimation();
+            pauseBtn.innerHTML = '▶';
+            pauseBtn.title = 'Запустить';
         }
     });
 
-    // Функция переключения на сетку
+    // Обработчик скорости
+    speedSlider.addEventListener('input', (e) => {
+        currentSpeed = parseInt(e.target.value);
+        speedValue.textContent = currentSpeed;
+    });
+
+    // Обработчик сброса
+    resetBtn.addEventListener('click', () => {
+        currentSpeed = 30;
+        speedSlider.value = '30';
+        speedValue.textContent = '30';
+        currentPosition = 0;
+        marqueeTrack.style.transform = 'translateX(0px)';
+    });
+
+    // Переключение режимов
     function switchToGrid() {
         skillsGrid.classList.remove('hidden');
         marqueeContainer.classList.remove('active');
         gridBtn.classList.add('active');
         marqueeBtn.classList.remove('active');
-
-        // Добавляем анимацию для карточек
-        const items = document.querySelectorAll('.skill-item');
-        items.forEach((item, index) => {
-            item.style.animation = `fadeInUp 0.5s ease ${index * 0.05}s forwards`;
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
-        });
-
-        // Сбрасываем анимацию карточек через 0.5 секунды
-        setTimeout(() => {
-            items.forEach(item => {
-                item.style.animation = '';
-                item.style.opacity = '';
-                item.style.transform = '';
-            });
-        }, 500);
+        stopAnimation();
     }
 
-    // Функция переключения на бегущую строку
     function switchToMarquee() {
         skillsGrid.classList.add('hidden');
         marqueeContainer.classList.add('active');
         gridBtn.classList.remove('active');
         marqueeBtn.classList.add('active');
-
-        // Обновляем анимацию
-        setTimeout(() => {
-            updateMarqueeAnimation();
-        }, 100);
+        currentPosition = 0;
+        marqueeTrack.style.transform = 'translateX(0px)';
+        startAnimation();
     }
 
-    // Обработчики для кнопок переключения
     gridBtn.addEventListener('click', switchToGrid);
     marqueeBtn.addEventListener('click', switchToMarquee);
 
-    // Добавляем эффект при наведении на карточки в сетке
-    const skillItems = document.querySelectorAll('.skill-item');
-    skillItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            item.style.transform = 'translateY(-10px) scale(1.02)';
-        });
+    // Запускаем анимацию (но скрытую, пока не выбран режим)
+    startAnimation();
 
-        item.addEventListener('mouseleave', () => {
-            item.style.transform = '';
-        });
-    });
-
-    // Добавляем эффект при клике на элементы бегущей строки
-    marqueeContainer.addEventListener('click', (e) => {
-        const marqueeItem = e.target.closest('.marquee-item');
-        if (marqueeItem) {
-            const title = marqueeItem.querySelector('h3').textContent;
-            console.log(`Выбрано направление: ${title}`);
-            // Здесь можно добавить дополнительную логику, например, показать модальное окно с подробностями
-            marqueeItem.style.transform = 'scale(1.05)';
-            setTimeout(() => {
-                marqueeItem.style.transform = '';
-            }, 300);
+    // Обработка изменения размера окна
+    window.addEventListener('resize', () => {
+        if (marqueeContainer.classList.contains('active')) {
+            currentPosition = 0;
+            marqueeTrack.style.transform = 'translateX(0px)';
         }
     });
 
-    // Инициализация - показываем сетку по умолчанию
-    skillsGrid.classList.remove('hidden');
-    marqueeContainer.classList.remove('active');
-
-    console.log('Режимы отображения настроены: сетка и бегущая строка!');
+    console.log('Режимы отображения настроены! Бегущая строка работает');
 }
 
-// Инициализация при загрузке
+// ========== ГЛАВНАЯ ФУНКЦИЯ ИНИЦИАЛИЗАЦИИ ==========
 document.addEventListener('DOMContentLoaded', function() {
-    // ... существующий код ...
+    console.log('DOM загружен, запускаем инициализацию...');
 
-    // Добавляем переключение режимов для секции "Что изучаем"
-    setupSkillsViewToggle();
-});
-
-// ========== ИНИЦИАЛИЗАЦИЯ ==========
-document.addEventListener('DOMContentLoaded', function () {
-    // CSS‑фон
+    // Создаём CSS фон
     const cssBg = document.createElement('div');
     cssBg.className = 'matrix-css-bg';
     document.body.appendChild(cssBg);
 
-    // Запуск эффектов
+    // Запуск всех эффектов
     createMatrixRain();
     setupHeroImageTeleport();
     addGlitchEffect();
     setupSmoothScroll();
-    setupIntersectionObserver();
+    setupSkillsViewToggle();
+    setupMotivationSlang();
 
     // Динамический навбар
     const navBar = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navBar.style.background = 'rgba(10, 15, 26, 0.95)';
-            navBar.style.backdropFilter = 'blur(12px)';
-        } else {
-            navBar.style.background = 'rgba(10, 15, 26, 0.9)';
-            navBar.style.backdropFilter = 'blur(10px)';
-        }
-    });
-});
-
-// ========== ВОЛНООБРАЗНАЯ АНИМАЦИЯ ДЛЯ СЕКЦИИ "ДЛЯ КОГО" ==========
-function setupWaveAnimation() {
-    const targetItems = document.querySelectorAll('.target-item');
-    const targetSection = document.querySelector('.target-section');
-
-    if (!targetItems.length) return;
-
-    // Устанавливаем индивидуальную задержку для каждого элемента
-    targetItems.forEach((item, index) => {
-        // Задержка для создания эффекта волны
-        const delay = index * 0.4;
-        item.style.animationDelay = `${delay}s`;
-
-        // Добавляем data-атрибут
-        item.setAttribute('data-wave-index', index);
-
-        // Эффект при наведении
-        item.addEventListener('mouseenter', () => {
-            // Временно ускоряем анимацию
-            item.style.animationDuration = '2s';
-            item.style.transform = 'scale(1.05)';
-            item.style.background = 'rgba(0, 255, 0, 0.2)';
-        });
-
-        item.addEventListener('mouseleave', () => {
-            // Возвращаем нормальную скорость
-            item.style.animationDuration = '';
-            item.style.transform = '';
-            item.style.background = '';
-        });
-    });
-
-    // Добавляем эффект параллакса при скролле
-    if (targetSection) {
+    if (navBar) {
         window.addEventListener('scroll', () => {
-            const rect = targetSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                const scrollProgress = Math.min(1, Math.max(0,
-                    (windowHeight - rect.top) / (windowHeight + rect.height)
-                ));
-
-                // Слегка смещаем элементы в зависимости от скролла
-                targetItems.forEach((item, idx) => {
-                    const moveX = (scrollProgress - 0.5) * 20 * (idx + 1);
-                    if (item.style.animationPlayState !== 'paused') {
-                        item.style.setProperty('--move-x', `${moveX}px`);
-                    }
-                });
+            if (window.scrollY > 50) {
+                navBar.style.background = 'rgba(10, 15, 26, 0.95)';
+                navBar.style.backdropFilter = 'blur(12px)';
+            } else {
+                navBar.style.background = 'rgba(10, 15, 26, 0.9)';
+                navBar.style.backdropFilter = 'blur(10px)';
             }
         });
     }
 
-    // Добавляем ripple эффект при клике
-    targetItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            const rect = item.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const ripple = document.createElement('div');
-            ripple.style.cssText = `
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(0, 255, 157, 0.6), transparent);
-                left: ${x - 50}px;
-                top: ${y - 50}px;
-                pointer-events: none;
-                animation: rippleEffect 0.6s ease-out forwards;
-                z-index: 10;
-            `;
-
-            item.style.position = 'relative';
-            item.style.overflow = 'hidden';
-            item.appendChild(ripple);
-
-            setTimeout(() => ripple.remove(), 600);
-        });
-    });
-
-    console.log('Волновая анимация для секции "Для кого" настроена!');
-}
-
-// Добавляем стили для ripple эффекта
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-    @keyframes rippleEffect {
-        0% {
-            transform: scale(0);
-            opacity: 0.8;
-        }
-        100% {
-            transform: scale(2);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(rippleStyle);
-
-// Инициализация
-document.addEventListener('DOMContentLoaded', function() {
-    // ... существующий код ...
-
-    // Добавляем волновую анимацию для секции "Для кого"
-    setupWaveAnimation();
+    console.log('Все эффекты успешно загружены!');
 });

@@ -36,26 +36,21 @@ body {
     z-index: -2;
 }
 
-    .matrix-css-bg::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,255,0,0.1) 50px, rgba(0,255,0,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,255,0,0.1) 50px, rgba(0,255,0,0.1) 51px);
-        background-size: 60px 60px;
-        animation: matrixMove 20s linear infinite;
-    }
+.matrix-css-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,255,0,0.1) 50px, rgba(0,255,0,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,255,0,0.1) 50px, rgba(0,255,0,0.1) 51px);
+    background-size: 60px 60px;
+    animation: matrixMove 20s linear infinite;
+}
 
 @keyframes matrixMove {
-    0% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 60px 60px;
-    }
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
 }
 
 .matrix-js-bg {
@@ -84,13 +79,8 @@ body {
 }
 
 @keyframes matrixFall {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    100% {
-        transform: translateY(100vh);
-    }
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
 }
 
 @media (max-width: 768px) {
@@ -135,13 +125,13 @@ h2 {
     text-shadow: 0 0 5px rgba(0,255,157,0.5);
 }
 
-    .section-tag.light {
-        color: #fff;
-        border-left-color: #fff;
-    }
+.section-tag.light {
+    color: #fff;
+    border-left-color: #fff;
+}
 
 /* ==========================================
-   НАВБАР (лого слева, меню справа, ограничен по ширине)
+   НАВБАР
    ========================================== */
 .nav-bar {
     position: fixed;
@@ -154,12 +144,12 @@ h2 {
     border-bottom: 1px solid rgba(0,255,0,0.2);
 }
 
-    .nav-bar .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 30px;
-    }
+.nav-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+}
 
 .nav-logo img {
     height: 40px;
@@ -171,24 +161,23 @@ h2 {
     gap: 40px;
 }
 
-    .nav-menu span {
-        font-weight: 500;
-        cursor: pointer;
-        color: #e0e0e0;
-        transition: 0.3s;
-    }
+.nav-menu span {
+    font-weight: 500;
+    cursor: pointer;
+    color: #e0e0e0;
+    transition: 0.3s;
+}
 
-        .nav-menu span:hover {
-            color: #00ff9d;
-            text-shadow: 0 0 10px #00ff9d;
-        }
+.nav-menu span:hover {
+    color: #00ff9d;
+    text-shadow: 0 0 10px #00ff9d;
+}
 
 @media (max-width: 700px) {
     .nav-bar .container {
         flex-direction: column;
         gap: 15px;
     }
-
     .nav-menu {
         gap: 20px;
     }
@@ -236,15 +225,15 @@ h2 {
     position: relative;
 }
 
-    .hero .hero-image.teleport-active {
-        position: absolute;
-        margin: 0;
-    }
+.hero .hero-image.teleport-active {
+    position: absolute;
+    margin: 0;
+}
 
-    .hero .hero-image:hover {
-        border-color: #ff00ff;
-        box-shadow: 0 0 50px rgba(255,0,255,0.3);
-    }
+.hero .hero-image:hover {
+    border-color: #ff00ff;
+    box-shadow: 0 0 50px rgba(255,0,255,0.3);
+}
 
 .hero-quote {
     font-size: 2rem;
@@ -266,15 +255,15 @@ h2 {
     margin: 2rem 0;
 }
 
-    .hero-stats-mini span {
-        background: rgba(0,255,0,0.1);
-        backdrop-filter: blur(5px);
-        padding: 8px 16px;
-        border-radius: 40px;
-        font-weight: 500;
-        border: 1px solid rgba(0,255,0,0.3);
-        color: #00ff9d;
-    }
+.hero-stats-mini span {
+    background: rgba(0,255,0,0.1);
+    backdrop-filter: blur(5px);
+    padding: 8px 16px;
+    border-radius: 40px;
+    font-weight: 500;
+    border: 1px solid rgba(0,255,0,0.3);
+    color: #00ff9d;
+}
 
 .btn-primary {
     display: inline-block;
@@ -291,11 +280,11 @@ h2 {
     box-shadow: 0 0 20px rgba(0,255,0,0.3);
 }
 
-    .btn-primary:hover {
-        background: #00ff9d;
-        color: #0a0f1a;
-        box-shadow: 0 0 30px #00ff9d;
-    }
+.btn-primary:hover {
+    background: #00ff9d;
+    color: #0a0f1a;
+    box-shadow: 0 0 30px #00ff9d;
+}
 
 @media (max-width: 800px) {
     .hero-grid {
@@ -304,9 +293,45 @@ h2 {
 }
 
 /* ==========================================
+   СЕКЦИЯ "ДЛЯ КОГО" - БЕЗ АНИМАЦИИ
+   ========================================== */
+.target-section {
+    position: relative;
+    padding: 80px 0;
+    background: rgba(10,15,26,0.8);
+    backdrop-filter: blur(5px);
+}
+
+.target-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.target-item {
+    background: rgba(0, 255, 0, 0.05);
+    backdrop-filter: blur(5px);
+    padding: 30px 25px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.target-item:hover {
+    border-color: #00ff9d;
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+}
+
+/* ==========================================
    ОБЩИЕ СТИЛИ ДЛЯ СЕКЦИЙ
    ========================================== */
-.target-section,
 .state-section,
 .skills-section,
 .stages-section,
@@ -318,7 +343,6 @@ h2 {
     backdrop-filter: blur(5px);
 }
 
-.target-section,
 .skills-section,
 .stages-section,
 .competencies-section,
@@ -340,23 +364,23 @@ h2 {
 /* ==========================================
    СЕТКИ КАРТОЧЕК
    ========================================== */
-.target-grid,
 .skills-grid,
 .stages-grid,
 .competencies-grid,
 .career-grid,
-.faq-grid {
+.faq-grid,
+.state-grid {
     display: grid;
     gap: 30px;
     margin-top: 40px;
 }
 
-.target-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.skills-grid {
+    grid-template-columns: repeat(3, 1fr);
 }
 
-.skills-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.skills-grid.hidden {
+    display: none;
 }
 
 .stages-grid {
@@ -376,13 +400,14 @@ h2 {
 }
 
 .state-grid {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
     margin: 40px 0;
 }
 
 @media (max-width: 900px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .state-grid,
     .career-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -390,6 +415,7 @@ h2 {
 }
 
 @media (max-width: 600px) {
+    .skills-grid,
     .state-grid,
     .career-grid {
         grid-template-columns: 1fr;
@@ -397,15 +423,15 @@ h2 {
 }
 
 /* ==========================================
-   КАРТОЧКИ (общий стиль)
+   КАРТОЧКИ
    ========================================== */
-.target-item,
 .skill-item,
 .stage-card,
 .competency-item,
 .career-card,
 .faq-item,
-.state-card {
+.state-card,
+.target-item {
     background: rgba(0,255,0,0.05);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(0,255,0,0.2);
@@ -413,10 +439,10 @@ h2 {
     transition: 0.3s;
 }
 
-.target-item,
 .skill-item,
 .competency-item,
-.faq-item {
+.faq-item,
+.target-item {
     padding: 20px;
 }
 
@@ -426,9 +452,23 @@ h2 {
     padding: 30px;
 }
 
-.target-item {
-    font-weight: 700;
-    border-left: 5px solid #00ff9d;
+.skill-item {
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.skill-item:hover,
+.stage-card:hover,
+.competency-item:hover,
+.career-card:hover,
+.faq-item:hover,
+.state-card:hover,
+.target-item:hover {
+    border-color: #00ff9d;
+    box-shadow: 0 0 20px rgba(0,255,0,0.3);
+    transform: translateY(-4px);
 }
 
 .state-card h4,
@@ -466,13 +506,13 @@ h2 {
     margin-top: 15px;
 }
 
-    .stage-tags span {
-        background: rgba(0,255,0,0.2);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        color: #00ff9d;
-    }
+.stage-tags span {
+    background: rgba(0,255,0,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #00ff9d;
+}
 
 .salary {
     font-size: 1.6rem;
@@ -495,18 +535,6 @@ h2 {
 
 .state-result {
     font-size: 1.5rem;
-}
-
-.target-item:hover,
-.skill-item:hover,
-.stage-card:hover,
-.competency-item:hover,
-.career-card:hover,
-.faq-item:hover,
-.state-card:hover {
-    border-color: #00ff9d;
-    box-shadow: 0 0 20px rgba(0,255,0,0.3);
-    transform: translateY(-4px);
 }
 
 /* ==========================================
@@ -537,9 +565,9 @@ h2 {
     font-size: 1.1rem;
 }
 
-    .exam-row strong {
-        color: #00ff9d;
-    }
+.exam-row strong {
+    color: #00ff9d;
+}
 
 @media (max-width: 800px) {
     .exams-grid {
@@ -564,32 +592,32 @@ h2 {
     border-bottom: 1px solid rgba(0,255,0,0.2);
 }
 
-    .footer-cta-block .tiny {
-        font-size: 0.8rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: #00ff9d;
-        opacity: 0.8;
-        display: block;
-        margin-bottom: 20px;
-    }
+.footer-cta-block .tiny {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #00ff9d;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 20px;
+}
 
-    .footer-cta-block .big {
-        font-size: 4rem;
-        font-weight: 800;
-        display: block;
-        line-height: 1.2;
-        margin: 20px 0;
-        color: #00ff9d;
-        text-shadow: 0 0 30px #00ff9d;
-    }
+.footer-cta-block .big {
+    font-size: 4rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1.2;
+    margin: 20px 0;
+    color: #00ff9d;
+    text-shadow: 0 0 30px #00ff9d;
+}
 
-    .footer-cta-block .footer-small {
-        color: #b0b0b0;
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-    }
+.footer-cta-block .footer-small {
+    color: #b0b0b0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
 .footer-grid {
     display: grid;
@@ -602,7 +630,6 @@ h2 {
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .footer-cta-block .big {
         font-size: 2.8rem;
     }
@@ -622,19 +649,17 @@ h2 {
     margin-bottom: 20px;
 }
 
-    .footer-logo img {
-        filter: brightness(0) invert(1) drop-shadow(0 0 5px #00ff9d); /* зелёное свечение для обоих */
-    }
+.footer-logo img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px #00ff9d);
+}
 
-    .footer-logo .logo-safu {
-        height: 55px;
-        filter: brightness(0) invert(1) drop-shadow(0 0 5px #00ff9d);
-    }
+.footer-logo .logo-safu {
+    height: 55px;
+}
 
-    .footer-logo .logo-ismart {
-        height: 65px;
-        filter: brightness(0) invert(1) drop-shadow(0 0 5px #00ff9d);
-    }
+.footer-logo .logo-ismart {
+    height: 65px;
+}
 
 @media (max-width: 600px) {
     .footer-logo {
@@ -670,10 +695,10 @@ h2 {
     transition: 0.2s;
 }
 
-    .footer-col a:hover {
-        color: #00ff9d;
-        text-shadow: 0 0 5px #00ff9d;
-    }
+.footer-col a:hover {
+    color: #00ff9d;
+    text-shadow: 0 0 5px #00ff9d;
+}
 
 .social-links span {
     font-size: 2rem;
@@ -685,71 +710,29 @@ h2 {
     display: inline-block;
 }
 
-    .social-links span:hover {
-        text-shadow: 0 0 15px #00ff9d;
-        transform: scale(1.1);
-    }
+.social-links span:hover {
+    text-shadow: 0 0 15px #00ff9d;
+    transform: scale(1.1);
+}
 
 /* ==========================================
    АНИМАЦИИ (ГЛИТЧ, ТЕЛЕПОРТАЦИЯ)
    ========================================== */
 @keyframes glitch {
-    0% {
-        transform: translate(0);
-        text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9;
-    }
-
-    1% {
-        transform: translate(-2px, 1px);
-        text-shadow: -4px 0 #ff00c1, 4px 0 #00fff9;
-    }
-
-    2% {
-        transform: translate(2px, -1px);
-        text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
-    }
-
-    3% {
-        transform: translate(-1px, 2px);
-        text-shadow: -3px 0 #ff00c1, 3px 0 #00fff9;
-    }
-
-    4% {
-        transform: translate(0);
-        text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9;
-    }
-
-    5%, 100% {
-        transform: translate(0);
-        text-shadow: none;
-    }
+    0% { transform: translate(0); text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+    1% { transform: translate(-2px, 1px); text-shadow: -4px 0 #ff00c1, 4px 0 #00fff9; }
+    2% { transform: translate(2px, -1px); text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9; }
+    3% { transform: translate(-1px, 2px); text-shadow: -3px 0 #ff00c1, 3px 0 #00fff9; }
+    4% { transform: translate(0); text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+    5%, 100% { transform: translate(0); text-shadow: none; }
 }
 
 @keyframes glitch-split {
-    0% {
-        clip-path: inset(0 0 0 0);
-        transform: skew(0deg);
-    }
-
-    2% {
-        clip-path: inset(20% 0 30% 0);
-        transform: skew(2deg);
-    }
-
-    4% {
-        clip-path: inset(50% 0 10% 0);
-        transform: skew(-2deg);
-    }
-
-    6% {
-        clip-path: inset(80% 0 5% 0);
-        transform: skew(1deg);
-    }
-
-    8%, 100% {
-        clip-path: inset(0 0 0 0);
-        transform: skew(0deg);
-    }
+    0% { clip-path: inset(0 0 0 0); transform: skew(0deg); }
+    2% { clip-path: inset(20% 0 30% 0); transform: skew(2deg); }
+    4% { clip-path: inset(50% 0 10% 0); transform: skew(-2deg); }
+    6% { clip-path: inset(80% 0 5% 0); transform: skew(1deg); }
+    8%, 100% { clip-path: inset(0 0 0 0); transform: skew(0deg); }
 }
 
 h1 .glitch-word {
@@ -760,83 +743,54 @@ h1 .glitch-word {
     text-shadow: 0 0 10px rgba(0,255,157,0.5);
 }
 
-    h1 .glitch-word::before,
-    h1 .glitch-word::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+h1 .glitch-word::before,
+h1 .glitch-word::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-    h1 .glitch-word::before {
-        animation: glitch-split 3s infinite;
-        color: #ff00c1;
-        z-index: -1;
-        transform: translate(-3px, 2px);
-        text-shadow: 2px 2px 5px rgba(255,0,193,0.5);
-    }
+h1 .glitch-word::before {
+    animation: glitch-split 3s infinite;
+    color: #ff00c1;
+    z-index: -1;
+    transform: translate(-3px, 2px);
+    text-shadow: 2px 2px 5px rgba(255,0,193,0.5);
+}
 
-    h1 .glitch-word::after {
-        animation: glitch-split 4s infinite reverse;
-        color: #00fff9;
-        z-index: -2;
-        transform: translate(3px, -2px);
-        text-shadow: -2px -2px 5px rgba(0,255,249,0.5);
-    }
+h1 .glitch-word::after {
+    animation: glitch-split 4s infinite reverse;
+    color: #00fff9;
+    z-index: -2;
+    transform: translate(3px, -2px);
+    text-shadow: -2px -2px 5px rgba(0,255,249,0.5);
+}
 
 @keyframes teleport {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-        filter: blur(0);
-    }
-
-    20% {
-        transform: scale(0.8);
-        opacity: 0;
-        filter: blur(10px) hue-rotate(90deg);
-    }
-
-    40% {
-        transform: scale(1.2);
-        opacity: 0;
-        filter: blur(10px) hue-rotate(180deg);
-    }
-
-    60% {
-        transform: scale(1.1);
-        opacity: 0.5;
-        filter: blur(5px) hue-rotate(270deg);
-    }
-
-    80% {
-        transform: scale(0.9);
-        opacity: 0.8;
-        filter: blur(2px) hue-rotate(360deg);
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-        filter: blur(0);
-    }
+    0% { transform: scale(1); opacity: 1; filter: blur(0); }
+    20% { transform: scale(0.8); opacity: 0; filter: blur(10px) hue-rotate(90deg); }
+    40% { transform: scale(1.2); opacity: 0; filter: blur(10px) hue-rotate(180deg); }
+    60% { transform: scale(1.1); opacity: 0.5; filter: blur(5px) hue-rotate(270deg); }
+    80% { transform: scale(0.9); opacity: 0.8; filter: blur(2px) hue-rotate(360deg); }
+    100% { transform: scale(1); opacity: 1; filter: blur(0); }
 }
 
 .hero .hero-image.teleporting {
     animation: teleport 0.6s ease;
     z-index: 100;
 }
+
 /* ==========================================
-   СЕКЦИЯ "ЧТО ИЗУЧАЕМ" - СЕТКА И БЕГУЩИЙ СЛАЙДЕР
+   СЕКЦИЯ "ЧТО ИЗУЧАЕМ" - КНОПКИ ПЕРЕКЛЮЧЕНИЯ
    ========================================== */
 .skills-section {
     position: relative;
     overflow-x: hidden;
 }
 
-/* Контейнер для кнопок переключения */
 .view-toggle {
     display: flex;
     justify-content: flex-end;
@@ -873,75 +827,7 @@ h1 .glitch-word {
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
 }
 
-.toggle-btn .icon {
-    font-size: 1.2rem;
-}
-
-/* ========== РЕЖИМ СЕТКИ (по умолчанию) ========== */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    transition: all 0.5s ease;
-}
-
-.skills-grid.hidden {
-    display: none;
-}
-
-.skill-item {
-    background: rgba(0, 255, 0, 0.05);
-    backdrop-filter: blur(5px);
-    padding: 30px 20px;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: #e0e0e0;
-    text-align: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.skill-item:hover {
-    border-color: #00ff9d;
-    background: rgba(0, 255, 0, 0.1);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
-}
-
-/* Эффект свечения при наведении */
-.skill-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.skill-item:hover::before {
-    left: 100%;
-}
-
-/* Адаптация сетки для разных экранов */
-@media (max-width: 900px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ========== РЕЖИМ БЕГУЩЕЙ СТРОКИ (СЛАЙДЕР) ========== */
+/* ========== РЕЖИМ БЕГУЩЕЙ СТРОКИ ========== */
 .skills-marquee {
     position: relative;
     display: none;
@@ -969,6 +855,11 @@ h1 .glitch-word {
 
 .marquee-track:hover {
     animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 .marquee-item {
@@ -1011,25 +902,11 @@ h1 .glitch-word {
     line-height: 1.5;
 }
 
-@keyframes marqueeScroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
-/* Контролы для бегущей строки */
 .marquee-controls {
     display: flex;
     justify-content: center;
@@ -1082,218 +959,262 @@ h1 .glitch-word {
     cursor: pointer;
 }
 
-/* Анимация появления */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.skills-grid:not(.hidden),
-.skills-marquee.active {
-    animation: fadeInUp 0.5s ease;
-}
-/* ==========================================
-   ВОЛНООБРАЗНАЯ АНИМАЦИЯ ДЛЯ СЕКЦИИ "ДЛЯ КОГО"
-   ========================================== */
-.target-section {
-    position: relative;
-    overflow-x: hidden;
-}
-
-.target-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    position: relative;
-}
-
-.target-item {
-    flex: 1;
-    min-width: 220px;
-    background: rgba(0, 255, 0, 0.05);
-    backdrop-filter: blur(5px);
-    padding: 30px 25px;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: 600;
+.speed-value {
+    color: #00ff9d;
+    min-width: 35px;
     text-align: center;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    animation: waveRightLeft 5s ease-in-out infinite;
-    transform-origin: center;
-    will-change: transform;
 }
 
-/* Разная задержка для каждого элемента - создаем эффект волны */
-.target-item:nth-child(1) {
-    animation-delay: 0s;
+/* ==========================================
+   МОТИВИРУЮЩИЕ СЛЕНГИ - ИСПРАВЛЕННЫЕ
+   ========================================== */
+.motivation-toast {
+    position: fixed;
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.95), rgba(0, 200, 120, 0.95));
+    color: #0a0f1a;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    z-index: 1000;
+    white-space: nowrap;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
 }
 
-.target-item:nth-child(2) {
-    animation-delay: 0.3s;
+.motivation-toast.left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation-name: slideFromLeft;
 }
 
-.target-item:nth-child(3) {
-    animation-delay: 0.6s;
+.motivation-toast.right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation-name: slideFromRight;
 }
 
-.target-item:nth-child(4) {
-    animation-delay: 0.9s;
-}
-
-/* Основная анимация: плавно уходим вправо и возвращаемся */
-@keyframes waveRightLeft {
+@keyframes slideFromLeft {
     0% {
-        transform: translateX(0px);
-        opacity: 0.9;
-        border-color: rgba(0, 255, 0, 0.2);
-        box-shadow: 0 0 0 rgba(0, 255, 157, 0);
+        left: -200px;
+        opacity: 0;
     }
-    25% {
-        transform: translateX(30px);
+    15% {
+        left: 20px;
         opacity: 1;
-        border-color: #00ff9d;
-        box-shadow: 0 5px 20px rgba(0, 255, 157, 0.3);
-        background: rgba(0, 255, 0, 0.1);
     }
-    50% {
-        transform: translateX(0px);
-        opacity: 0.95;
-        border-color: rgba(0, 255, 0, 0.3);
-        box-shadow: 0 2px 10px rgba(0, 255, 157, 0.1);
-        background: rgba(0, 255, 0, 0.07);
-    }
-    75% {
-        transform: translateX(30px);
+    85% {
+        left: 20px;
         opacity: 1;
-        border-color: #00ff9d;
-        box-shadow: 0 5px 20px rgba(0, 255, 157, 0.3);
-        background: rgba(0, 255, 0, 0.1);
     }
     100% {
-        transform: translateX(0px);
-        opacity: 0.9;
-        border-color: rgba(0, 255, 0, 0.2);
-        box-shadow: 0 0 0 rgba(0, 255, 157, 0);
+        left: -200px;
+        opacity: 0;
     }
 }
 
-/* Альтернативный вариант с более плавным движением */
-.target-item-smooth {
-    animation: smoothWaveRight 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-}
-
-@keyframes smoothWaveRight {
-    0%, 100% {
-        transform: translateX(0px);
-        filter: brightness(1);
+@keyframes slideFromRight {
+    0% {
+        right: -200px;
+        opacity: 0;
     }
-    40% {
-        transform: translateX(35px);
-        filter: brightness(1.1);
-        border-color: #00ff9d;
+    15% {
+        right: 20px;
+        opacity: 1;
     }
-    60% {
-        transform: translateX(35px);
-        filter: brightness(1.1);
-        border-color: #00ff9d;
+    85% {
+        right: 20px;
+        opacity: 1;
     }
-    80% {
-        transform: translateX(0px);
-        filter: brightness(1);
+    100% {
+        right: -200px;
+        opacity: 0;
     }
 }
 
-/* Эффект свечения при движении */
-.target-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-    transparent,
-    rgba(0, 255, 157, 0.2),
-    transparent);
+/* ==========================================
+   БЕГУЩАЯ СТРОКА - ТОЛЬКО ЭТОТ БЛОК
+   ========================================== */
+.skills-marquee {
+    position: relative;
+    display: none;
+    overflow: hidden;
     border-radius: 30px;
-    opacity: 0;
-    animation: waveGlow 5s ease-in-out infinite;
-    pointer-events: none;
+    background: rgba(0, 255, 0, 0.03);
+    padding: 40px 0;
 }
 
-.target-item:nth-child(1)::before {
-    animation-delay: 0s;
+.skills-marquee.active {
+    display: block;
 }
 
-.target-item:nth-child(2)::before {
-    animation-delay: 0.3s;
+.marquee-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
-.target-item:nth-child(3)::before {
-    animation-delay: 0.6s;
+.marquee-track {
+    display: flex;
+    width: fit-content;
+    /* НЕТ animation здесь - только JS управляет */
 }
 
-.target-item:nth-child(4)::before {
-    animation-delay: 0.9s;
+.marquee-item {
+    flex: 0 0 auto;
+    width: 320px;
+    margin: 0 15px;
+    background: rgba(0, 255, 0, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 30px;
+    padding: 40px 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-@keyframes waveGlow {
-    0%, 100% {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    25% {
-        opacity: 0.5;
-        transform: translateX(0%);
-    }
-    50% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    75% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-}
-
-/* Эффект при наведении - ускоряем движение */
-.target-item:hover {
-    animation-duration: 2.5s;
+.marquee-item:hover {
     transform: scale(1.05);
     background: rgba(0, 255, 0, 0.15);
-    box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
     border-color: #00ff9d;
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+}
+
+.marquee-item .emoji {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.marquee-item h3 {
+    font-size: 1.5rem;
+    color: #00ff9d;
+    margin-bottom: 12px;
+}
+
+.marquee-item p {
+    font-size: 0.95rem;
+    color: #b0b0b0;
+    line-height: 1.5;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.marquee-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.marquee-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff9d;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     transition: all 0.3s ease;
 }
 
-/* Адаптация для мобильных устройств */
-@media (max-width: 768px) {
-    .target-item {
-        animation-duration: 4s;
-        padding: 20px;
-        font-size: 1rem;
-    }
-
-    @keyframes waveRightLeft {
-        0%, 100% {
-            transform: translateX(0px);
-        }
-        25%, 75% {
-            transform: translateX(15px);
-        }
-        50% {
-            transform: translateX(0px);
-        }
-    }
+.marquee-btn:hover {
+    background: rgba(0, 255, 0, 0.3);
+    transform: scale(1.1);
 }
 
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 5px 15px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.speed-control label {
+    color: #00ff9d;
+    font-size: 0.9rem;
+}
+
+.speed-control input {
+    width: 150px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ff9d;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #00ff9d;
+    cursor: pointer;
+}
+
+.speed-control input::-webkit-slider-thumb {
+    background: #00ff9d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.speed-value {
+    color: #00ff9d;
+    min-width: 45px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.reset-speed-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff9d;
+    padding: 5px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.reset-speed-btn:hover {
+    background: rgba(0, 255, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* Кнопка звука */
+.sound-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff9d;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.sound-toggle:hover {
+    background: rgba(0, 255, 0, 0.4);
+    transform: scale(1.1);
+}
