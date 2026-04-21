@@ -1,0 +1,58 @@
+/* ==========================================
+   СЕКЦИЯ "ТРАЕКТОРИЯ ОБУЧЕНИЯ" (STAGES)
+   ========================================== */
+.stages-section {
+    padding: 80px 0;
+    background: var(--bg-tertiary);
+    backdrop-filter: blur(5px);
+}
+
+.stages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.stage-card {
+    background: rgba(0,255,0,0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0,255,0,0.2);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    transition: var(--transition);
+}
+
+.stage-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.stage-number {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-green);
+    margin-bottom: 10px;
+}
+
+.stage-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--accent-green);
+}
+
+.stage-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.stage-tags span {
+    background: rgba(0,255,0,0.2);
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--accent-green);
+}

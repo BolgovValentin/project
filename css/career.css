@@ -1,0 +1,54 @@
+/* ==========================================
+   СЕКЦИЯ "КАРЬЕРА" (CAREER)
+   ========================================== */
+.career-section {
+    padding: 80px 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.career-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.career-card {
+    background: rgba(0,255,0,0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0,255,0,0.2);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.career-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.career-card h3 {
+    color: var(--accent-green);
+    margin-bottom: 10px;
+}
+
+.salary {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    margin-top: 10px;
+}
+
+.career-note {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+    background: rgba(0,255,0,0.1);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    margin-top: 40px;
+}

@@ -1,0 +1,103 @@
+/* ================
+   МАТРИЧНЫЙ ФОН
+   ==============*/
+.matrix-css-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0f1a 0%, #141c2c 100%);
+    z-index: -2;
+}
+
+.matrix-css-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+            repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(0, 255, 0, 0.1) 50px,
+                    rgba(0, 255, 0, 0.1) 51px
+            ),
+            repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(0, 255, 0, 0.1) 50px,
+                    rgba(0, 255, 0, 0.1) 51px
+            );
+    background-size: 60px 60px;
+    pointer-events: none;
+    animation: matrixMove 20s linear infinite;
+}
+
+@keyframes matrixMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 60px 60px;
+    }
+}
+
+.matrix-js-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.matrix-column {
+    position: absolute;
+    color: #00ff9d;
+    font-family: 'Courier New', monospace;
+    font-size: 32px;
+    line-height: 38px;
+    white-space: pre;
+    opacity: 0.25;
+    text-shadow: 0 0 12px #00ff9d, 0 0 20px #00ff00;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: matrixFall linear infinite;
+}
+
+/* Разная скорость и задержка для каждой колонки */
+.matrix-column:nth-child(odd) {
+    animation-duration: 12s;
+}
+.matrix-column:nth-child(even) {
+    animation-duration: 18s;
+}
+.matrix-column:nth-child(3n) {
+    animation-duration: 15s;
+}
+.matrix-column:nth-child(5n+2) {
+    animation-duration: 20s;
+}
+
+@keyframes matrixFall {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+@media (max-width: 768px) {
+    .matrix-column {
+        font-size: 24px;
+        line-height: 28px;
+    }
+}

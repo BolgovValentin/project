@@ -1,0 +1,95 @@
+/* ==========================================
+   АДАПТИВНЫЕ СТИЛИ
+   ========================================== */
+@media (max-width: 700px) {
+    .nav-bar .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-menu {
+        gap: 20px;
+    }
+    .nav-question-btn {
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 800px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+    .exams-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .state-grid,
+    .career-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .target-grid {
+        grid-template-columns: 1fr;
+    }
+    .target-item:last-child {
+        grid-column: 1;
+    }
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+    }
+    .footer-cta-block .big {
+        font-size: 2.8rem;
+    }
+    .footer-logo {
+        justify-content: center;
+    }
+    .matrix-column {
+        font-size: 24px;
+        line-height: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .skills-grid,
+    .state-grid,
+    .career-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    .motivation-toast {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+    }
+    .sound-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .target-item {
+        font-size: 1rem;
+        padding: 20px 15px;
+    }
+    .faq-item h4 {
+        font-size: 1.2rem;
+    }
+    .faq-item p {
+        font-size: 0.95rem;
+    }
+}

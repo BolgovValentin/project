@@ -1,0 +1,121 @@
+/* ==========================================
+   ПОДВАЛ (FOOTER)
+   ========================================== */
+.footer {
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(0,255,0,0.3);
+    padding: 50px 0 30px;
+}
+
+.footer-cta-block {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,255,0,0.2);
+}
+
+.footer-cta-block .tiny {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.footer-cta-block .big {
+    font-size: 4rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1.2;
+    margin: 20px 0;
+    color: var(--accent-green);
+    text-shadow: 0 0 30px var(--accent-green);
+}
+
+.footer-cta-block .footer-small {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px var(--accent-green));
+}
+
+.footer-logo .logo-safu {
+    height: 55px;
+}
+
+.footer-logo .logo-ismart {
+    height: 65px;
+}
+
+.footer-col h4 {
+    color: var(--accent-green);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-col p,
+.footer-col ul {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col li {
+    margin-bottom: 10px;
+}
+
+.footer-col a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-col a:hover {
+    color: var(--accent-green);
+    text-shadow: 0 0 5px var(--accent-green);
+}
+
+.social-links a {
+    text-decoration: none;
+}
+
+.social-links span {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 20px;
+    color: var(--accent-green);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.social-links span:hover {
+    text-shadow: 0 0 15px var(--accent-green);
+    transform: scale(1.1);
+}

@@ -4,271 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ИСМАРТ | 09.03.01 Информатика и ВТ</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- CSS подключения-->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/matrix.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/target.css">
+    <link rel="stylesheet" href="css/state.css">
+    <link rel="stylesheet" href="css/skills.css">
+    <link rel="stylesheet" href="css/stages.css">
+    <link rel="stylesheet" href="css/competencies.css">
+    <link rel="stylesheet" href="css/career.css">
+    <link rel="stylesheet" href="css/exams.css">
+    <link rel="stylesheet" href="css/faq.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Навбар -->
-    <div class="nav-bar">
-        <div class="container">
-            <div class="nav-logo">
-                <a href="https://narfu.ru/sf/sevmashvtuz/"><img src="images/l1.png" alt="ИСМАРТ"></a>
-            </div>
-            <div class="nav-menu">
-                <span data-target="target">Для кого</span>
-                <span data-target="skills">Программа</span>
-                <span data-target="career">Карьера</span>
-                <span data-target="footer">Контакты</span>
-            </div>
-        </div>
-    </div>
+<!-- БЛОК: ШАПКА САЙТА (HEADER)-->
+<div data-include="sections/header.html"></div>
 
-    <!-- Hero -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-text">
-                    <div class="hero-sup">Севмашвтуз / ИСМАРТ</div>
-                    <h1>
-                        <span class="glitch-word" data-text="Разрабатывай">Разрабатывай</span><br>
-                        <span class="glitch-word" data-text="зарабатывай">зарабатывай</span>
-                    </h1>
-                    <p class="hero-description">
-                        09.03.01 Информатика и вычислительная техника.<br>
-                        Создавай цифровое будущее в сердце Арктики.
-                    </p>
-                    <div class="hero-stats-mini">
-                        <span>25 бюджетных мест</span>
-                        <span>5 платных мест</span>
-                        <span>4 года</span>
-                    </div>
-                    <a href="#" class="btn-primary">Хочу сюда →</a>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-quote">«не просто учим, <br>даём профессию»</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ГЛАВНЫЙ ЭКРАН (HERO)-->
+<div data-include="sections/hero.html"></div>
 
-    <!-- Для кого -->
-    <section class="target-section" id="target">
-        <div class="container">
-            <span class="section-tag">для кого</span>
-            <h2>ЭТОТ КУРС ДЛЯ ВАС, <br>ЕСЛИ ВЫ ХОТИТЕ:</h2>
-            <div class="target-grid">
-                <div class="target-item">разбираться в ЭВМ, системах и сетях</div>
-                <div class="target-item">проектировать базы данных и интерфейсы</div>
-                <div class="target-item">создавать программы и ПО</div>
-                <div class="target-item">работать с математическим и инф. обеспечением</div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ДЛЯ КОГО (TARGET)-->
+<div data-include="sections/target.html"></div>
 
-    <!-- Состояние абитуриентов -->
-    <section class="state-section" id="state">
-        <div class="container">
-            <span class="section-tag">реальность</span>
-            <h2>В КАКОМ СОСТОЯНИИ БОЛЬШИНСТВО АБИТУРИЕНТОВ СЕЙЧАС</h2>
-            <div class="state-grid">
-                <div class="state-card">
-                    <span class="state-number">01</span>
-                    <h4>Не понимают, что реально нужно учить</h4>
-                    <p>Куча всего, а что пригодится в работе — непонятно.</p>
-                </div>
-                <div class="state-card">
-                    <span class="state-number">02</span>
-                    <h4>Боятся, что будет скучно</h4>
-                    <p>Лекции, лабы, а где живое программирование?</p>
-                </div>
-                <div class="state-card">
-                    <span class="state-number">03</span>
-                    <h4>Не знают, где работать после</h4>
-                    <p>Боятся остаться без опыта и без денег.</p>
-                </div>
-                <div class="state-card">
-                    <span class="state-number">04</span>
-                    <h4>Думают, что IT — это сложно</h4>
-                    <p>Страх не справиться и разочароваться.</p>
-                </div>
-            </div>
-            <div class="state-result">
-                <p>С нами вы закроете эти вопросы и начнёте программировать по-настоящему.</p>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: СОСТОЯНИЕ АБИТУРИЕНТОВ (STATE)-->
+<div data-include="sections/state.html"></div>
 
-    <!-- Ключевые направления -->
-    <section class="skills-section" id="skills">
-        <div class="container">
-            <span class="section-tag">что изучаем</span>
-            <h2>КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ</h2>
-            <div class="skills-grid">
-                <div class="skill-item">🤖 Искусственный интеллект</div>
-                <div class="skill-item">☁️ Облачные технологии</div>
-                <div class="skill-item">🔐 Информационная безопасность</div>
-                <div class="skill-item">📱 Мобильная разработка</div>
-                <div class="skill-item">🌐 Web-разработка</div>
-                <div class="skill-item">🏢 Корпоративные системы (ERP/CRM)</div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ЧТО ИЗУЧАЕМ (SKILLS)-->
+<div data-include="sections/skills.html"></div>
 
-    <!-- Этапы обучения (4 курса) -->
-    <section class="stages-section">
-        <div class="container">
-            <span class="section-tag">траектория</span>
-            <h2>4 ГОДА ДО УСПЕШНОЙ КАРЬЕРЫ</h2>
-            <div class="stages-grid">
-                <div class="stage-card">
-                    <div class="stage-number">1 курс</div>
-                    <h3>Фундамент</h3>
-                    <p>Python, C++, SQL, компьютерная графика, математика</p>
-                    <div class="stage-tags"><span>Python</span><span>C++</span><span>SQL</span></div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">2 курс</div>
-                    <h3>Web и ИС</h3>
-                    <p>Web-разработка, СУБД, CASE-технологии, управление ИТ-проектами</p>
-                    <div class="stage-tags"><span>Django</span><span>PostgreSQL</span><span>UML</span></div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">3 курс</div>
-                    <h3>Специализация</h3>
-                    <p>Мобильная разработка, 1С, тестирование, безопасность</p>
-                    <div class="stage-tags"><span>Flutter</span><span>1С</span><span>Katalon</span></div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">4 курс</div>
-                    <h3>Профессионал</h3>
-                    <p>AI, облачные сервисы, интеграция ИС, дипломный проект</p>
-                    <div class="stage-tags"><span>ML</span><span>DevOps</span><span>Yandex Cloud</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ТРАЕКТОРИЯ ОБУЧЕНИЯ (STAGES)-->
+<div data-include="sections/stages.html"></div>
 
-    <!-- Профессиональные компетенции -->
-    <section class="competencies-section">
-        <div class="container">
-            <span class="section-tag">вы научитесь</span>
-            <h2>ПРОФЕССИОНАЛЬНЫЕ КОМПЕТЕНЦИИ</h2>
-            <div class="competencies-grid">
-                <div class="competency-item">📐 Разрабатывать требования и проектировать ИС</div>
-                <div class="competency-item">🔄 Моделировать деловые процессы</div>
-                <div class="competency-item">💾 Проектировать ПО, структуры и базы данных</div>
-                <div class="competency-item">📄 Документировать жизненный цикл ИС</div>
-                <div class="competency-item">📊 Выполнять технико-экономическое обоснование</div>
-                <div class="competency-item">🛡️ Выявлять угрозы и разрабатывать политику безопасности</div>
-                <div class="competency-item">🧪 Тестировать компоненты ПО</div>
-                <div class="competency-item">⚙️ Администрировать информационно-коммуникационные системы</div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ПРОФЕССИОНАЛЬНЫЕ КОМПЕТЕНЦИИ (COMPETENCIES)-->
+<div data-include="sections/competencies.html"></div>
 
-    <!-- Где работают выпускники -->
-    <section class="career-section" id="career">
-        <div class="container">
-            <span class="section-tag">трудоустройство</span>
-            <h2>ГДЕ РАБОТАЮТ НАШИ ВЫПУСКНИКИ</h2>
-            <div class="career-grid">
-                <div class="career-card"><h3>Fullstack Developer</h3><p>Web-приложения</p><div class="salary">от 150 000 ₽</div></div>
-                <div class="career-card"><h3>ML Engineer</h3><p>Машинное обучение</p><div class="salary">от 200 000 ₽</div></div>
-                <div class="career-card"><h3>Security Engineer</h3><p>Кибербезопасность</p><div class="salary">от 180 000 ₽</div></div>
-                <div class="career-card"><h3>DevOps Engineer</h3><p>Инфраструктура</p><div class="salary">от 170 000 ₽</div></div>
-            </div>
-            <div class="career-note">90% выпускников работают в IT‑подразделениях ОСК и других компаниях</div>
-        </div>
-    </section>
+<!-- БЛОК: КАРЬЕРА (CAREER)-->
+<div data-include="sections/career.html"></div>
 
-    <!-- Экзамены -->
-    <section class="exams-section" id="exams">
-        <div class="container">
-            <div class="exams-grid">
-                <div class="exams-left">
-                    <span class="section-tag light">вступительные</span>
-                    <div class="big-counter">04:10:45:39</div>
-                    <p class="exam-note">ЕГЭ / СПО</p>
-                </div>
-                <div class="exams-right">
-                    <div class="exam-row"><span>Математика (проф.)</span><strong>40</strong></div>
-                    <div class="exam-row"><span>Русский язык</span><strong>40</strong></div>
-                    <div class="exam-row"><span>Физика / Информатика (на выбор)</span><strong>41/46</strong></div>
-                    <div class="exam-row"><span>СПО: Информационные технологии / Прикладная математика</span><strong>40/40</strong></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ВСТУПИТЕЛЬНЫЕ ЭКЗАМЕНЫ (EXAMS)-->
+<div data-include="sections/exams.html"></div>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-        <div class="container">
-            <span class="section-tag">ответы на вопросы</span>
-            <h2>ЧТО ЕЩЁ ВАЖНО ЗНАТЬ?</h2>
-            <div class="faq-grid">
-                <div class="faq-item"><h4>Можно ли совмещать учёбу и работу?</h4><p>Да, с 3‑го курса многие студенты проходят стажировки и начинают работать.</p></div>
-                <div class="faq-item"><h4>Есть ли отсрочка от армии?</h4><p>Да, при очной форме обучения предоставляется отсрочка на весь период.</p></div>
-                <div class="faq-item"><h4>Какая стипендия?</h4><p>Академическая — от 2 500 ₽, повышенная — за особые успехи, есть стипендии от предприятий.</p></div>
-                <div class="faq-item"><h4>Где проходят практику?</h4><p>На ведущих предприятиях: АО «ПО «Севмаш», АО «ЦС «Звёздочка», IT‑отделах ОСК.</p></div>
-            </div>
-        </div>
-    </section>
+<!-- БЛОК: ВОПРОСЫ-ОТВЕТЫ (FAQ)-->
+<div data-include="sections/faq.html"></div>
 
-    <!-- Футер (единый) -->
-    <footer class="footer" id="footer">
-        <div class="container">
-            <div class="footer-cta-block">
-                <span class="tiny">ПОСТУПЛЕНИЕ 2026</span>
-                <span class="big">СТАНЬ ЧАСТЬЮ ИСМАРТ</span>
-                <div class="footer-small">Реальные проекты. Стажировки. Работа в IT.</div>
-            </div>
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="images/safu.png" alt="САФУ" class="logo-safu">
-                        <img src="images/safu1.png" alt="ИСМАРТ" class="logo-ismart">
-                    </div>
-                    <p>Институт судостроения и морской арктической техники (Севмашвтуз)</p>
-                    <p>© 2026 ИСМАРТ</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Абитуриенту</h4>
-                    <ul>
-                        <li><a href="#" data-target="state">Как поступить</a></li>
-                        <li><a href="#" data-target="exams">Вступительные экзамены</a></li>
-                        <li><a href="#" data-target="career">Карьера после выпуска</a></li>
-                        <li><a href="https://narfu.ru/sf/entrant/090301.php" target="_blank">Сайт САФУ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Навигация</h4>
-                    <ul>
-                        <li><a href="#" data-target="target">Для кого</a></li>
-                        <li><a href="#" data-target="skills">Программа</a></li>
-                        <li><a href="#" data-target="career">Карьера</a></li>
-                        <li><a href="#" data-target="footer">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li><a href="tel:+78184539579">8 (8184) 53-95-79</a></li>
-                        <li><a href="mailto:sf@narfu.ru">sf@narfu.ru</a></li>
-                        <li>г. Северодвинск,<br>ул. Капитана Воронина, д.6</li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Соцсети</h4>
-                    <div class="social-links">
-                        <a href="https://max.ru/id2901039102_biz"><span>MAX</span></a>
-                        <a href="https://vk.com/club228215646"><span>VK</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- БЛОК: ПОДВАЛ (FOOTER)-->
+<div data-include="sections/footer.html"></div>
 
-    <script src="js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

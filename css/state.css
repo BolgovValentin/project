@@ -1,0 +1,55 @@
+/* ==========================================
+   СЕКЦИЯ "СОСТОЯНИЕ АБИТУРИЕНТОВ" (STATE)
+   ========================================== */
+.state-section {
+    padding: 80px 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.state-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.state-card {
+    background: rgba(0,255,0,0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0,255,0,0.2);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    transition: var(--transition);
+}
+
+.state-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.state-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent-green);
+    opacity: 0.5;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.state-card h4 {
+    color: var(--accent-green);
+    margin-bottom: 10px;
+}
+
+.state-result {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    background: rgba(0,255,0,0.1);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    margin-top: 40px;
+}

@@ -1,0 +1,142 @@
+/* ==========================================
+   АНИМАЦИИ
+   ========================================== */
+/* Глитч эффект для заголовка */
+@keyframes glitch {
+    0% { transform: translate(0); text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+    1% { transform: translate(-2px, 1px); text-shadow: -4px 0 #ff00c1, 4px 0 #00fff9; }
+    2% { transform: translate(2px, -1px); text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9; }
+    3% { transform: translate(-1px, 2px); text-shadow: -3px 0 #ff00c1, 3px 0 #00fff9; }
+    4% { transform: translate(0); text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+    5%, 100% { transform: translate(0); text-shadow: none; }
+}
+
+@keyframes glitch-split {
+    0% { clip-path: inset(0 0 0 0); transform: skew(0deg); }
+    2% { clip-path: inset(20% 0 30% 0); transform: skew(2deg); }
+    4% { clip-path: inset(50% 0 10% 0); transform: skew(-2deg); }
+    6% { clip-path: inset(80% 0 5% 0); transform: skew(1deg); }
+    8%, 100% { clip-path: inset(0 0 0 0); transform: skew(0deg); }
+}
+
+h1 .glitch-word {
+    position: relative;
+    display: inline-block;
+    animation: glitch 6s infinite;
+    color: var(--accent-green);
+    text-shadow: 0 0 10px rgba(0,255,157,0.5);
+}
+
+h1 .glitch-word::before,
+h1 .glitch-word::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+h1 .glitch-word::before {
+    animation: glitch-split 3s infinite;
+    color: #ff00c1;
+    z-index: -1;
+    transform: translate(-3px, 2px);
+    text-shadow: 2px 2px 5px rgba(255,0,193,0.5);
+}
+
+h1 .glitch-word::after {
+    animation: glitch-split 4s infinite reverse;
+    color: #00fff9;
+    z-index: -2;
+    transform: translate(3px, -2px);
+    text-shadow: -2px -2px 5px rgba(0,255,249,0.5);
+}
+
+/* Телепортация */
+@keyframes teleport {
+    0% { transform: scale(1); opacity: 1; filter: blur(0); }
+    20% { transform: scale(0.8); opacity: 0; filter: blur(10px) hue-rotate(90deg); }
+    40% { transform: scale(1.2); opacity: 0; filter: blur(10px) hue-rotate(180deg); }
+    60% { transform: scale(1.1); opacity: 0.5; filter: blur(5px) hue-rotate(270deg); }
+    80% { transform: scale(0.9); opacity: 0.8; filter: blur(2px) hue-rotate(360deg); }
+    100% { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+
+.hero .hero-image.teleporting {
+    animation: teleport 0.6s ease;
+    z-index: 100;
+}
+
+/* Мотивирующие сленги */
+.motivation-toast {
+    position: fixed;
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.95), rgba(0, 200, 120, 0.95));
+    color: #0a0f1a;
+    padding: 15px 30px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 1.1rem;
+    z-index: var(--z-modal);
+    white-space: nowrap;
+    box-shadow: var(--shadow-xl), 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+.motivation-toast.left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation-name: slideFromLeft;
+}
+
+.motivation-toast.right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation-name: slideFromRight;
+}
+
+@keyframes slideFromLeft {
+    0% { left: -200px; opacity: 0; }
+    15% { left: 20px; opacity: 1; }
+    85% { left: 20px; opacity: 1; }
+    100% { left: -200px; opacity: 0; }
+}
+
+@keyframes slideFromRight {
+    0% { right: -200px; opacity: 0; }
+    15% { right: 20px; opacity: 1; }
+    85% { right: 20px; opacity: 1; }
+    100% { right: -200px; opacity: 0; }
+}
+
+/* Кнопка звука */
+.sound-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: var(--accent-green);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    z-index: var(--z-modal);
+}
+
+.sound-toggle:hover {
+    background: rgba(0, 255, 0, 0.4);
+    transform: scale(1.1);
+}

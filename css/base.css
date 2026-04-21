@@ -1,0 +1,62 @@
+/* ==========================================
+   БАЗОВЫЕ СТИЛИ
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Типографика */
+h1 {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0,255,0,0.3);
+}
+
+h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 8px rgba(0,255,0,0.2);
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--accent-green);
+    padding-left: 10px;
+    text-shadow: 0 0 5px rgba(0,255,157,0.5);
+}
+
+.section-tag.light {
+    color: #fff;
+    border-left-color: #fff;
+}

@@ -1,4 +1,88 @@
-// ========== ЭФФЕКТ ГЛИТЧА ==========
+// ==========================================
+// ЗАГРУЗКА HTML СЕКЦИЙ (INCLUDES)
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const includes = document.querySelectorAll('[data-include]');
+    let loadedCount = 0;
+    const totalIncludes = includes.length;
+
+    if (totalIncludes === 0) {
+        initAll();
+        return;
+    }
+
+    includes.forEach(element => {
+        const file = element.getAttribute('data-include');
+
+        if (file) {
+            fetch(file)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    element.innerHTML = data;
+                    element.removeAttribute('data-include');
+                    loadedCount++;
+
+                    if (loadedCount === totalIncludes) {
+                        initAll();
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки секции:', file, error);
+                    element.innerHTML = `<div style="color: red; padding: 20px; text-align: center;">❌ Ошибка загрузки: ${file}</div>`;
+                    loadedCount++;
+
+                    if (loadedCount === totalIncludes) {
+                        initAll();
+                    }
+                });
+        } else {
+            loadedCount++;
+            if (loadedCount === totalIncludes) {
+                initAll();
+            }
+        }
+    });
+});
+
+// ==========================================
+// ГЛАВНАЯ ИНИЦИАЛИЗАЦИЯ
+// ==========================================
+function initAll() {
+    console.log('Инициализация всех эффектов...');
+
+    addGlitchEffect();
+    createMatrixRain();
+    setupHeroImageTeleport();
+    setupSmoothScroll();
+    setupMotivationSlang();
+    setupSkillsViewToggle();
+    updateCountdown();
+
+    // Динамический навбар при скролле
+    const navBar = document.querySelector('.nav-bar');
+    if (navBar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navBar.style.background = 'rgba(10, 15, 26, 0.95)';
+                navBar.style.backdropFilter = 'blur(12px)';
+            } else {
+                navBar.style.background = 'rgba(10, 15, 26, 0.9)';
+                navBar.style.backdropFilter = 'blur(10px)';
+            }
+        });
+    }
+
+    console.log('Все эффекты успешно загружены!');
+}
+
+// ==========================================
+// ЭФФЕКТ ГЛИТЧА ДЛЯ ЗАГОЛОВКА
+// ==========================================
 function addGlitchEffect() {
     const h1 = document.querySelector('h1');
     if (h1 && !h1.querySelector('.glitch-word')) {
@@ -13,14 +97,19 @@ function addGlitchEffect() {
     }
 }
 
-// ========== МАТРИЧНЫЙ ФОН ==========
+// =============
+// МАТРИЧНЫЙ ФОН
+// =============
 function createMatrixRain() {
     const matrixContainer = document.createElement('div');
     matrixContainer.className = 'matrix-js-bg';
     const columns = 15;
+
     for (let i = 0; i < columns; i++) {
         const column = document.createElement('div');
         column.className = 'matrix-column';
+
+        // Случайное позиционирование
         const left = (i * 6.6) + (Math.random() * 3);
         const delay = Math.random() * 10;
         const duration = 12 + Math.random() * 15;
@@ -31,25 +120,44 @@ function createMatrixRain() {
         column.style.animationDuration = duration + 's';
         column.style.opacity = opacity;
 
+        // Генерируем более разнообразный и красивый код
         let code = '';
         const lines = 15;
+
         for (let j = 0; j < lines; j++) {
+            // Разные комбинации для разных строк
             if (j % 3 === 0) {
-                for (let k = 0; k < 8; k++) code += Math.random() > 0.3 ? '1' : '0';
+                // Строка с преобладанием 1
+                for (let k = 0; k < 8; k++) {
+                    code += Math.random() > 0.3 ? '1' : '0';
+                }
             } else if (j % 3 === 1) {
-                for (let k = 0; k < 8; k++) code += Math.random() > 0.7 ? '1' : '0';
+                // Строка с преобладанием 0
+                for (let k = 0; k < 8; k++) {
+                    code += Math.random() > 0.7 ? '1' : '0';
+                }
             } else {
-                for (let k = 0; k < 8; k++) code += (k % 2 === 0) ? '1' : '0';
+                // Строка с чередованием
+                for (let k = 0; k < 8; k++) {
+                    code += (k % 2 === 0) ? '1' : '0';
+                }
             }
-            if (j % 4 === 0) code = code.replace(/(.{2})/g, '$1 ');
+
+            // Добавляем пробелы для разнообразия
+            if (j % 4 === 0) {
+                code = code.replace(/(.{2})/g, '$1 ');
+            }
+
             code += '\n';
         }
 
+        // Добавляем специальные символы в некоторые колонки для эффекта "матрицы"
         if (i % 3 === 0) {
             code = code.replace(/0/g, '0').replace(/1/g, '1');
         } else if (i % 3 === 1) {
             code = code.replace(/0/g, '0').replace(/1/g, '1');
         } else {
+            // В некоторых колонках добавляем символы из матрицы
             code = code.replace(/0/g, Math.random() > 0.7 ? 'Ø' : '0')
                 .replace(/1/g, Math.random() > 0.7 ? 'ï' : '1');
         }
@@ -57,15 +165,19 @@ function createMatrixRain() {
         column.textContent = code;
         matrixContainer.appendChild(column);
     }
+
     document.body.appendChild(matrixContainer);
     console.log('Матричный фон создан');
 }
 
-// ========== ТЕЛЕПОРТАЦИЯ БЛОКА ==========
+// ==========================================
+// ТЕЛЕПОРТАЦИЯ БЛОКА С ЦИТАТОЙ
+// ==========================================
 function setupHeroImageTeleport() {
     const heroImage = document.querySelector('.hero .hero-image');
     const heroSection = document.querySelector('.hero');
     const heroText = document.querySelector('.hero-text');
+
     if (!heroImage || !heroSection || !heroText) return;
 
     let isTeleporting = false;
@@ -76,6 +188,7 @@ function setupHeroImageTeleport() {
         const maxLeft = sectionRect.width - imageRect.width - padding;
         const minTop = padding;
         const maxTop = sectionRect.height - imageRect.height - padding;
+
         if (maxLeft < minLeft || maxTop < minTop) {
             return { left: padding, top: padding, valid: false };
         }
@@ -93,11 +206,14 @@ function setupHeroImageTeleport() {
         const padding = 20;
         const maxLeft = Math.max(padding, sectionRect.width - imageRect.width - padding);
         const maxTop = Math.max(padding, sectionRect.height - imageRect.height - padding);
+
         if (maxLeft <= padding || maxTop <= padding) {
             return { left: padding, top: padding, valid: true };
         }
+
         let attempts = 0;
         const maxAttempts = 20;
+
         while (attempts < maxAttempts) {
             let left = padding + Math.random() * maxLeft;
             let top = padding + Math.random() * maxTop;
@@ -106,6 +222,7 @@ function setupHeroImageTeleport() {
             const imageCenterX = left + imageRect.width / 2;
             const imageCenterY = top + imageRect.height / 2;
             const distance = Math.hypot(imageCenterX - textCenterX, imageCenterY - textCenterY);
+
             if (distance > 250 || attempts > maxAttempts / 2) {
                 return { left, top, valid: true };
             }
@@ -173,9 +290,11 @@ function setupHeroImageTeleport() {
 
     heroImage.addEventListener('mouseenter', teleportBlock);
     heroImage.addEventListener('dblclick', resetPosition);
+
     window.addEventListener('resize', () => {
         if (heroImage.classList.contains('teleport-active')) resetPosition();
     });
+
     window.addEventListener('scroll', () => {
         if (heroImage.classList.contains('teleport-active')) {
             const sectionRect = heroSection.getBoundingClientRect();
@@ -186,10 +305,13 @@ function setupHeroImageTeleport() {
             }
         }
     });
+
     console.log('Телепортация настроена');
 }
 
-// ========== ПЛАВНЫЙ СКРОЛЛ ==========
+// ==========================================
+// ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+// ==========================================
 function setupSmoothScroll() {
     const links = document.querySelectorAll('[data-target]');
     links.forEach(link => {
@@ -205,13 +327,15 @@ function setupSmoothScroll() {
     console.log('Плавный скролл настроен');
 }
 
-// ========== МОТИВИРУЮЩИЕ СЛЕНГИ С ВОЗМОЖНОСТЬЮ СВОЕГО ЗВУКА ==========
+// ==========================================
+// МОТИВИРУЮЩИЕ СЛЕНГИ С ЗВУКОМ
+// ==========================================
 let soundEnabled = true;
 let customAudio = null;
 
-// Настройте свой звук здесь - поместите файл в папку sounds и укажите путь
-const CUSTOM_SOUND_URL = 'sounds/notification.mp3'; // Замените на путь к вашему звуку
-const USE_CUSTOM_SOUND = true; // Установите true, если хотите использовать свой звук
+// Настройка звука (поместите файл в папку sounds)
+const USE_CUSTOM_SOUND = true;  // true - использовать свой звук, false - синтезированный
+const CUSTOM_SOUND_URL = 'sounds/notification.mp3';
 
 function setupMotivationSlang() {
     const slangs = [
@@ -223,7 +347,7 @@ function setupMotivationSlang() {
         { text: "✨ Ты станешь профессионалом!", side: "right" },
         { text: "⚡ Не сдавайся!", side: "left" },
         { text: "🏆 Ты лучший!", side: "right" },
-        { text: "💡 Гениальная идея!", side: "left" },
+        { text: "💡 Пора получать знания!", side: "left" },
         { text: "🌟 Звёздный час близко!", side: "right" }
     ];
 
@@ -311,8 +435,6 @@ function setupMotivationSlang() {
         toast.textContent = slang.text;
         document.body.appendChild(toast);
 
-        console.log('Показан сленг:', slang.text);
-
         if (soundEnabled) {
             playSound();
         }
@@ -336,19 +458,18 @@ function setupMotivationSlang() {
     console.log('Мотивирующие сленги активированы! Появляются каждые 15-25 секунд');
 }
 
-// ========== БЕГУЩАЯ СТРОКА ==========
+// ==========================================
+// ПЕРЕКЛЮЧЕНИЕ МЕЖДУ СЕТКОЙ И БЕГУЩЕЙ СТРОКОЙ
+// ==========================================
 function setupSkillsViewToggle() {
-    const skillsSection = document.querySelector('.skills-section');
+    const gridBtn = document.querySelector('.toggle-btn[data-view="grid"]');
+    const marqueeBtn = document.querySelector('.toggle-btn[data-view="marquee"]');
     const skillsGrid = document.querySelector('.skills-grid');
+    const marqueeContainer = document.querySelector('.skills-marquee');
+    const marqueeTrack = document.querySelector('.skills-marquee .marquee-track');
 
-    if (!skillsGrid) {
-        console.log('skills-grid не найден');
-        return;
-    }
-
-    // Проверяем, не добавлены ли уже кнопки
-    if (document.querySelector('.view-toggle')) {
-        console.log('Кнопки уже добавлены');
+    if (!gridBtn || !marqueeBtn || !skillsGrid || !marqueeContainer) {
+        console.log('Элементы для переключения не найдены');
         return;
     }
 
@@ -361,34 +482,13 @@ function setupSkillsViewToggle() {
         { emoji: '🏢', title: 'Корпоративные системы', description: 'ERP/CRM, 1С, управление бизнес-процессами' }
     ];
 
-    // Создаём кнопки переключения
-    const toggleContainer = document.createElement('div');
-    toggleContainer.className = 'view-toggle';
-
-    const gridBtn = document.createElement('div');
-    gridBtn.className = 'toggle-btn active';
-    gridBtn.innerHTML = '<span class="icon">▦</span> Сетка';
-
-    const marqueeBtn = document.createElement('div');
-    marqueeBtn.className = 'toggle-btn';
-    marqueeBtn.innerHTML = '<span class="icon">◀ ▶</span> Бегущая строка';
-
-    toggleContainer.appendChild(gridBtn);
-    toggleContainer.appendChild(marqueeBtn);
-
-    const container = skillsSection.querySelector('.container');
-    container.insertBefore(toggleContainer, skillsGrid);
-
-    // Создаём бегущую строку
-    const marqueeContainer = document.createElement('div');
-    marqueeContainer.className = 'skills-marquee';
-
-    const createMarqueeItems = () => {
-        let items = '';
+    // Заполняем бегущую строку, если она пустая
+    if (marqueeTrack && marqueeTrack.children.length === 0) {
+        let itemsHTML = '';
         // Дублируем 3 раза для бесконечной прокрутки
         for (let i = 0; i < 3; i++) {
-            skillsData.forEach((skill) => {
-                items += `
+            skillsData.forEach(skill => {
+                itemsHTML += `
                     <div class="marquee-item">
                         <div class="emoji">${skill.emoji}</div>
                         <h3>${skill.title}</h3>
@@ -397,169 +497,135 @@ function setupSkillsViewToggle() {
                 `;
             });
         }
-        return items;
-    };
+        marqueeTrack.innerHTML = itemsHTML;
+        console.log('Бегущая строка заполнена');
+    }
 
-    marqueeContainer.innerHTML = `
-        <div class="marquee-container">
-            <div class="marquee-track">
-                ${createMarqueeItems()}
-            </div>
-        </div>
-        <div class="marquee-controls">
-            <div class="marquee-btn pause-btn" title="Пауза/Старт">⏸</div>
-            <div class="speed-control">
-                <label>⚡ Скорость</label>
-                <input type="range" min="1" max="100" value="30" step="1" class="speed-slider">
-                <span class="speed-value">30</span>
-            </div>
-            <div class="reset-speed-btn" title="Сбросить скорость">⟳ Сброс</div>
-        </div>
-    `;
-
-    container.appendChild(marqueeContainer);
-
-    // Управление бегущей строкой
-    let marqueeTrack = marqueeContainer.querySelector('.marquee-track');
-    let isPaused = false;
-    let currentSpeed = 30;
     let animationId = null;
     let currentPosition = 0;
-    let lastTimestamp = null;
+    let isPaused = false;
 
-    function animate(timestamp) {
-        if (!lastTimestamp) {
-            lastTimestamp = timestamp;
+    function startMarquee() {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
+
+        const track = document.querySelector('.skills-marquee.active .marquee-track');
+        if (!track) return;
+
+        const totalWidth = track.scrollWidth / 3;
+        let lastTime = null;
+
+        function animate(time) {
+            if (isPaused) {
+                lastTime = null;
+                animationId = requestAnimationFrame(animate);
+                return;
+            }
+
+            if (!lastTime) {
+                lastTime = time;
+                animationId = requestAnimationFrame(animate);
+                return;
+            }
+
+            const delta = Math.min(0.05, (time - lastTime) / 1000);
+            currentPosition = (currentPosition + 60 * delta) % totalWidth;
+            track.style.transform = `translateX(-${currentPosition}px)`;
+            lastTime = time;
             animationId = requestAnimationFrame(animate);
+        }
+
+        isPaused = false;
+        animationId = requestAnimationFrame(animate);
+        console.log('Бегущая строка запущена');
+    }
+
+    function stopMarquee() {
+        isPaused = true;
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
+        console.log('Бегущая строка остановлена');
+    }
+
+    function resetMarquee() {
+        currentPosition = 0;
+        if (marqueeTrack) {
+            marqueeTrack.style.transform = 'translateX(0px)';
+        }
+    }
+
+    // Переключение на сетку
+    gridBtn.addEventListener('click', () => {
+        gridBtn.classList.add('active');
+        marqueeBtn.classList.remove('active');
+        skillsGrid.classList.remove('hidden');
+        marqueeContainer.classList.remove('active');
+        stopMarquee();
+        resetMarquee();
+        console.log('Переключено на сетку');
+    });
+
+    // Переключение на бегущую строку
+    marqueeBtn.addEventListener('click', () => {
+        marqueeBtn.classList.add('active');
+        gridBtn.classList.remove('active');
+        skillsGrid.classList.add('hidden');
+        marqueeContainer.classList.add('active');
+        resetMarquee();
+        startMarquee();
+        console.log('Переключено на бегущую строку');
+    });
+
+    // Пауза при наведении на контейнер
+    marqueeContainer.addEventListener('mouseenter', () => {
+        if (marqueeContainer.classList.contains('active')) {
+            isPaused = true;
+        }
+    });
+
+    marqueeContainer.addEventListener('mouseleave', () => {
+        if (marqueeContainer.classList.contains('active')) {
+            isPaused = false;
+        }
+    });
+
+    console.log('Режимы отображения настроены!');
+}
+
+// ==========================================
+// ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ДО ПОСТУПЛЕНИЯ
+// ==========================================
+function updateCountdown() {
+    const counterElement = document.getElementById('countdown');
+    if (!counterElement) return;
+
+    function pad(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function update() {
+        const now = new Date();
+        const targetDate = new Date(2026, 5, 1); // 1 июня 2026
+
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            counterElement.textContent = '00:00:00:00';
             return;
         }
 
-        const delta = Math.min(0.05, (timestamp - lastTimestamp) / 1000);
-        if (delta > 0 && !isPaused) {
-            const totalWidth = marqueeTrack.scrollWidth / 3; // Делим на количество дублей
-            // Скорость: от 20 до 300 пикселей в секунду
-            const speedPxPerSecond = 20 + (currentSpeed / 100) * 280;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            currentPosition = (currentPosition + speedPxPerSecond * delta) % totalWidth;
-            marqueeTrack.style.transform = `translateX(-${currentPosition}px)`;
-        }
-
-        lastTimestamp = timestamp;
-        animationId = requestAnimationFrame(animate);
+        counterElement.textContent = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     }
 
-    function startAnimation() {
-        isPaused = false;
-        if (!animationId) {
-            lastTimestamp = null;
-            animationId = requestAnimationFrame(animate);
-        }
-    }
-
-    function stopAnimation() {
-        isPaused = true;
-    }
-
-    // Получаем элементы управления
-    const pauseBtn = marqueeContainer.querySelector('.pause-btn');
-    const speedSlider = marqueeContainer.querySelector('.speed-slider');
-    const speedValue = marqueeContainer.querySelector('.speed-value');
-    const resetBtn = marqueeContainer.querySelector('.reset-speed-btn');
-
-    // Обработчик паузы
-    pauseBtn.addEventListener('click', () => {
-        if (isPaused) {
-            startAnimation();
-            pauseBtn.innerHTML = '⏸';
-            pauseBtn.title = 'Пауза';
-        } else {
-            stopAnimation();
-            pauseBtn.innerHTML = '▶';
-            pauseBtn.title = 'Запустить';
-        }
-    });
-
-    // Обработчик скорости
-    speedSlider.addEventListener('input', (e) => {
-        currentSpeed = parseInt(e.target.value);
-        speedValue.textContent = currentSpeed;
-    });
-
-    // Обработчик сброса
-    resetBtn.addEventListener('click', () => {
-        currentSpeed = 30;
-        speedSlider.value = '30';
-        speedValue.textContent = '30';
-        currentPosition = 0;
-        marqueeTrack.style.transform = 'translateX(0px)';
-    });
-
-    // Переключение режимов
-    function switchToGrid() {
-        skillsGrid.classList.remove('hidden');
-        marqueeContainer.classList.remove('active');
-        gridBtn.classList.add('active');
-        marqueeBtn.classList.remove('active');
-        stopAnimation();
-    }
-
-    function switchToMarquee() {
-        skillsGrid.classList.add('hidden');
-        marqueeContainer.classList.add('active');
-        gridBtn.classList.remove('active');
-        marqueeBtn.classList.add('active');
-        currentPosition = 0;
-        marqueeTrack.style.transform = 'translateX(0px)';
-        startAnimation();
-    }
-
-    gridBtn.addEventListener('click', switchToGrid);
-    marqueeBtn.addEventListener('click', switchToMarquee);
-
-    // Запускаем анимацию (но скрытую, пока не выбран режим)
-    startAnimation();
-
-    // Обработка изменения размера окна
-    window.addEventListener('resize', () => {
-        if (marqueeContainer.classList.contains('active')) {
-            currentPosition = 0;
-            marqueeTrack.style.transform = 'translateX(0px)';
-        }
-    });
-
-    console.log('Режимы отображения настроены! Бегущая строка работает');
+    update();
+    setInterval(update, 1000);
 }
-
-// ========== ГЛАВНАЯ ФУНКЦИЯ ИНИЦИАЛИЗАЦИИ ==========
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM загружен, запускаем инициализацию...');
-
-    // Создаём CSS фон
-    const cssBg = document.createElement('div');
-    cssBg.className = 'matrix-css-bg';
-    document.body.appendChild(cssBg);
-
-    // Запуск всех эффектов
-    createMatrixRain();
-    setupHeroImageTeleport();
-    addGlitchEffect();
-    setupSmoothScroll();
-    setupSkillsViewToggle();
-    setupMotivationSlang();
-
-    // Динамический навбар
-    const navBar = document.querySelector('.nav-bar');
-    if (navBar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navBar.style.background = 'rgba(10, 15, 26, 0.95)';
-                navBar.style.backdropFilter = 'blur(12px)';
-            } else {
-                navBar.style.background = 'rgba(10, 15, 26, 0.9)';
-                navBar.style.backdropFilter = 'blur(10px)';
-            }
-        });
-    }
-
-    console.log('Все эффекты успешно загружены!');
-});

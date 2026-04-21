@@ -1,0 +1,46 @@
+/* ==========================================
+   СЕКЦИЯ "ДЛЯ КОГО" (TARGET)
+   ========================================== */
+.target-section {
+    position: relative;
+    padding: 80px 0;
+    background: var(--bg-tertiary);
+    backdrop-filter: blur(5px);
+}
+
+.target-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.target-item {
+    background: rgba(0, 255, 0, 0.05);
+    backdrop-filter: blur(8px);
+    padding: 30px 25px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    transition: var(--transition);
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.target-item:hover {
+    border-color: var(--accent-green);
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.target-item:last-child {
+    grid-column: 2 / 3;
+}

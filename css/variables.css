@@ -1,0 +1,46 @@
+/* ==========================================
+   ПЕРЕМЕННЫЕ (ДИЗАЙН-ТОКЕНЫ)
+   ========================================== */
+:root {
+    /* Цвета */
+    --bg-primary: #0a0f1a;
+    --bg-secondary: #141c2c;
+    --bg-tertiary: rgba(10, 15, 26, 0.8);
+    --accent-green: #00ff9d;
+    --accent-green-dark: #00cc7d;
+    --accent-pink: #ff00c1;
+    --accent-cyan: #00fff9;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #6c7a8a;
+
+    /* Шрифты */
+    --font-main: 'Inter', sans-serif;
+    --font-mono: 'Courier New', monospace;
+
+    /* Радиусы */
+    --radius-sm: 20px;
+    --radius-md: 30px;
+    --radius-lg: 40px;
+    --radius-xl: 60px;
+    --radius-full: 50px;
+
+    /* Тени */
+    --shadow-sm: 0 2px 10px rgba(0, 255, 157, 0.1);
+    --shadow-md: 0 5px 20px rgba(0, 255, 157, 0.2);
+    --shadow-lg: 0 10px 30px rgba(0, 255, 157, 0.3);
+    --shadow-xl: 0 0 30px rgba(0, 255, 157, 0.5);
+
+    /* Анимации */
+    --transition-fast: 0.2s;
+    --transition: 0.3s;
+    --transition-slow: 0.5s;
+
+    /* Z-index слои */
+    --z-negative: -2;
+    --z-bg: -1;
+    --z-default: 1;
+    --z-content: 2;
+    --z-nav: 100;
+    --z-modal: 1000;
+}
