@@ -1,6 +1,4 @@
-// ==========================================
-// ЗАГРУЗКА HTML СЕКЦИЙ (INCLUDES)
-// ==========================================
+// ========== ЗАГРУЗКА СЕКЦИЙ ==========
 document.addEventListener('DOMContentLoaded', function() {
     const includes = document.querySelectorAll('[data-include]');
     let loadedCount = 0;
@@ -13,38 +11,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     includes.forEach(element => {
         const file = element.getAttribute('data-include');
-
         if (file) {
             fetch(file)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     return response.text();
                 })
                 .then(data => {
                     element.innerHTML = data;
                     element.removeAttribute('data-include');
                     loadedCount++;
-
                     if (loadedCount === totalIncludes) {
-                        initAll();
+                        // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: ждём, пока DOM обновится
+                        setTimeout(() => {
+                            console.log('Все секции загружены, запускаем инициализацию');
+                            initAll();
+                        }, 50);
                     }
                 })
                 .catch(error => {
-                    console.error('Ошибка загрузки секции:', file, error);
-                    element.innerHTML = `<div style="color: red; padding: 20px; text-align: center;">❌ Ошибка загрузки: ${file}</div>`;
+                    console.error('Ошибка загрузки:', file, error);
                     loadedCount++;
-
                     if (loadedCount === totalIncludes) {
-                        initAll();
+                        setTimeout(() => initAll(), 50);
                     }
                 });
-        } else {
-            loadedCount++;
-            if (loadedCount === totalIncludes) {
-                initAll();
-            }
         }
     });
 });
@@ -61,7 +52,6 @@ function initAll() {
     setupSmoothScroll();
     setupMotivationSlang();
     setupSkillsViewToggle();
-    updateCountdown();
 
     // Динамический навбар при скролле
     const navBar = document.querySelector('.nav-bar');
@@ -594,38 +584,4 @@ function setupSkillsViewToggle() {
     });
 
     console.log('Режимы отображения настроены!');
-}
-
-// ==========================================
-// ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ДО ПОСТУПЛЕНИЯ
-// ==========================================
-function updateCountdown() {
-    const counterElement = document.getElementById('countdown');
-    if (!counterElement) return;
-
-    function pad(num) {
-        return num.toString().padStart(2, '0');
-    }
-
-    function update() {
-        const now = new Date();
-        const targetDate = new Date(2026, 5, 1); // 1 июня 2026
-
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-            counterElement.textContent = '00:00:00:00';
-            return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        counterElement.textContent = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-    }
-
-    update();
-    setInterval(update, 1000);
 }
