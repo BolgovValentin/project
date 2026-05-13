@@ -53,3 +53,9 @@
     color: var(--accent-green);
     margin-top: 40px;
 }
+
+:root[data-theme="light"] .state-result {
+    background: #e8ecf2;
+    border: 1px solid #0066cc;
+    color: #0066cc;
+}
