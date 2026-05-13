@@ -1,6 +1,8 @@
 /* ==========================================
    ПЕРЕМЕННЫЕ (ДИЗАЙН-ТОКЕНЫ)
    ========================================== */
+
+/* ТЕМНАЯ ТЕМА (по умолчанию) */
 :root {
     /* Цвета */
     --bg-primary: #0a0f1a;
@@ -13,6 +15,11 @@
     --text-primary: #e0e0e0;
     --text-secondary: #b0b0b0;
     --text-muted: #6c7a8a;
+    --card-bg: rgba(0, 255, 0, 0.05);
+    --card-border: rgba(0, 255, 0, 0.2);
+    --hero-bg: rgba(10, 15, 26, 0.6);
+    --footer-bg: rgba(0, 0, 0, 0.95);
+    --section-bg: transparent;
 
     /* Шрифты */
     --font-main: 'Inter', sans-serif;
@@ -43,4 +50,64 @@
     --z-content: 2;
     --z-nav: 100;
     --z-modal: 1000;
+}
+
+/* СВЕТЛАЯ ТЕМА - все блоки имеют светлый фон */
+:root[data-theme="light"] {
+    --bg-primary: #f8f9fc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: rgba(255, 255, 255, 0.95);
+    --accent-green: #0066cc;
+    --accent-green-dark: #0052a3;
+    --accent-pink: #cc3366;
+    --accent-cyan: #0099cc;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --text-muted: #8a8a9e;
+    --card-bg: #ffffff;
+    --card-border: rgba(0, 102, 204, 0.15);
+    --hero-bg: #f8f9fc;
+    --footer-bg: #e8ecf2;
+    --section-bg: #ffffff;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 0 30px rgba(0, 102, 204, 0.15);
+}
+
+/* РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ (увеличенный контраст и шрифт) */
+:root[data-visual="high-contrast"] {
+    --text-primary: #ffffff;
+    --text-secondary: #ffffcc;
+    --text-muted: #ffcc99;
+    --accent-green: #ffff00;
+    --accent-green-dark: #ffcc00;
+    --card-border: rgba(255, 255, 255, 0.5);
+}
+
+.visual-mode-active {
+    font-size: 18px;
+}
+
+.visual-mode-active h1 {
+    font-size: clamp(4rem, 12vw, 7rem);
+}
+
+.visual-mode-active h2 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+.visual-mode-active p,
+.visual-mode-active li,
+.visual-mode-active .skill-item,
+.visual-mode-active .target-item,
+.visual-mode-active .competency-item {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.visual-mode-active .btn-primary,
+.visual-mode-active .nav-question-btn {
+    font-size: 1.1rem;
+    padding: 12px 28px;
 }
