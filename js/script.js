@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.removeAttribute('data-include');
                     loadedCount++;
                     if (loadedCount === totalIncludes) {
-                        // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: ждём, пока DOM обновится
                         setTimeout(() => {
                             console.log('Все секции загружены, запускаем инициализацию');
                             initAll();
@@ -52,6 +51,10 @@ function initAll() {
     setupSmoothScroll();
     setupMotivationSlang();
     setupSkillsViewToggle();
+    setupThemeToggle();
+    setupVisualModeToggle();
+    setupSmartHeader();
+    setupScrollTop();
 
     // Динамический навбар при скролле
     const navBar = document.querySelector('.nav-bar');
@@ -70,6 +73,98 @@ function initAll() {
     console.log('Все эффекты успешно загружены!');
 }
 
+// ==========================================
+// ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (СВЕТЛАЯ/ТЁМНАЯ)
+// ==========================================
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    // Загрузка сохранённой темы
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☀️';
+    } else {
+        themeToggle.textContent = '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '🌙';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '☀️';
+        }
+    });
+}
+
+// ==========================================
+// РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ
+// ==========================================
+function setupVisualModeToggle() {
+    const visualToggle = document.getElementById('visualToggle');
+    if (!visualToggle) return;
+
+    // Функция обновления цвета кнопки в зависимости от темы
+    function updateButtonColor() {
+        const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+        if (document.body.classList.contains('visual-mode-active')) {
+            if (isLightTheme) {
+                visualToggle.style.background = '#0066cc';
+                visualToggle.style.border = '1px solid #0066cc';
+                visualToggle.style.color = '#ffffff';
+            } else {
+                visualToggle.style.background = '#00ff9d';
+                visualToggle.style.border = '1px solid #00ff9d';
+                visualToggle.style.color = '#0a0f1a';
+            }
+        } else {
+            // Возвращаем стандартный стиль
+            if (isLightTheme) {
+                visualToggle.style.background = 'rgba(0, 102, 204, 0.15)';
+                visualToggle.style.border = '1px solid rgba(0, 102, 204, 0.4)';
+                visualToggle.style.color = '#0066cc';
+            } else {
+                visualToggle.style.background = 'rgba(0, 255, 0, 0.2)';
+                visualToggle.style.border = '1px solid rgba(0, 255, 0, 0.3)';
+                visualToggle.style.color = '#00ff9d';
+            }
+        }
+    }
+
+    // Загрузка сохранённого режима
+    const savedVisual = localStorage.getItem('visualMode');
+    if (savedVisual === 'on') {
+        document.body.classList.add('visual-mode-active');
+    }
+
+    // Обновляем цвет кнопки при загрузке
+    updateButtonColor();
+
+    // Слушаем смену темы, чтобы обновить цвет кнопки
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            setTimeout(updateButtonColor, 50);
+        });
+    }
+
+    visualToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('visual-mode-active')) {
+            document.body.classList.remove('visual-mode-active');
+            localStorage.setItem('visualMode', 'off');
+        } else {
+            document.body.classList.add('visual-mode-active');
+            localStorage.setItem('visualMode', 'on');
+        }
+        updateButtonColor();
+    });
+}
 // ==========================================
 // ЭФФЕКТ ГЛИТЧА ДЛЯ ЗАГОЛОВКА
 // ==========================================
@@ -91,6 +186,9 @@ function addGlitchEffect() {
 // МАТРИЧНЫЙ ФОН
 // =============
 function createMatrixRain() {
+    // Проверяем, не создан ли уже фон
+    if (document.querySelector('.matrix-js-bg')) return;
+
     const matrixContainer = document.createElement('div');
     matrixContainer.className = 'matrix-js-bg';
     const columns = 15;
@@ -99,7 +197,6 @@ function createMatrixRain() {
         const column = document.createElement('div');
         column.className = 'matrix-column';
 
-        // Случайное позиционирование
         const left = (i * 6.6) + (Math.random() * 3);
         const delay = Math.random() * 10;
         const duration = 12 + Math.random() * 15;
@@ -110,46 +207,29 @@ function createMatrixRain() {
         column.style.animationDuration = duration + 's';
         column.style.opacity = opacity;
 
-        // Генерируем более разнообразный и красивый код
         let code = '';
         const lines = 15;
 
         for (let j = 0; j < lines; j++) {
-            // Разные комбинации для разных строк
             if (j % 3 === 0) {
-                // Строка с преобладанием 1
                 for (let k = 0; k < 8; k++) {
                     code += Math.random() > 0.3 ? '1' : '0';
                 }
             } else if (j % 3 === 1) {
-                // Строка с преобладанием 0
                 for (let k = 0; k < 8; k++) {
                     code += Math.random() > 0.7 ? '1' : '0';
                 }
             } else {
-                // Строка с чередованием
                 for (let k = 0; k < 8; k++) {
                     code += (k % 2 === 0) ? '1' : '0';
                 }
             }
 
-            // Добавляем пробелы для разнообразия
             if (j % 4 === 0) {
                 code = code.replace(/(.{2})/g, '$1 ');
             }
 
             code += '\n';
-        }
-
-        // Добавляем специальные символы в некоторые колонки для эффекта "матрицы"
-        if (i % 3 === 0) {
-            code = code.replace(/0/g, '0').replace(/1/g, '1');
-        } else if (i % 3 === 1) {
-            code = code.replace(/0/g, '0').replace(/1/g, '1');
-        } else {
-            // В некоторых колонках добавляем символы из матрицы
-            code = code.replace(/0/g, Math.random() > 0.7 ? 'Ø' : '0')
-                .replace(/1/g, Math.random() > 0.7 ? 'ï' : '1');
         }
 
         column.textContent = code;
@@ -158,145 +238,6 @@ function createMatrixRain() {
 
     document.body.appendChild(matrixContainer);
     console.log('Матричный фон создан');
-}
-
-// ==========================================
-// ТЕЛЕПОРТАЦИЯ БЛОКА С ЦИТАТОЙ
-// ==========================================
-function setupHeroImageTeleport() {
-    const heroImage = document.querySelector('.hero .hero-image');
-    const heroSection = document.querySelector('.hero');
-    const heroText = document.querySelector('.hero-text');
-
-    if (!heroImage || !heroSection || !heroText) return;
-
-    let isTeleporting = false;
-
-    function getSafePosition(left, top, imageRect, sectionRect) {
-        const padding = 20;
-        const minLeft = padding;
-        const maxLeft = sectionRect.width - imageRect.width - padding;
-        const minTop = padding;
-        const maxTop = sectionRect.height - imageRect.height - padding;
-
-        if (maxLeft < minLeft || maxTop < minTop) {
-            return { left: padding, top: padding, valid: false };
-        }
-        return {
-            left: Math.min(Math.max(left, minLeft), maxLeft),
-            top: Math.min(Math.max(top, minTop), maxTop),
-            valid: true
-        };
-    }
-
-    function getRandomPosition() {
-        const sectionRect = heroSection.getBoundingClientRect();
-        const imageRect = heroImage.getBoundingClientRect();
-        const textRect = heroText.getBoundingClientRect();
-        const padding = 20;
-        const maxLeft = Math.max(padding, sectionRect.width - imageRect.width - padding);
-        const maxTop = Math.max(padding, sectionRect.height - imageRect.height - padding);
-
-        if (maxLeft <= padding || maxTop <= padding) {
-            return { left: padding, top: padding, valid: true };
-        }
-
-        let attempts = 0;
-        const maxAttempts = 20;
-
-        while (attempts < maxAttempts) {
-            let left = padding + Math.random() * maxLeft;
-            let top = padding + Math.random() * maxTop;
-            const textCenterX = textRect.left + textRect.width / 2;
-            const textCenterY = textRect.top + textRect.height / 2;
-            const imageCenterX = left + imageRect.width / 2;
-            const imageCenterY = top + imageRect.height / 2;
-            const distance = Math.hypot(imageCenterX - textCenterX, imageCenterY - textCenterY);
-
-            if (distance > 250 || attempts > maxAttempts / 2) {
-                return { left, top, valid: true };
-            }
-            attempts++;
-        }
-        return { left: padding + Math.random() * maxLeft, top: padding + Math.random() * maxTop, valid: true };
-    }
-
-    function resetPosition() {
-        heroImage.style.position = 'relative';
-        heroImage.style.left = 'auto';
-        heroImage.style.top = 'auto';
-        heroImage.style.right = 'auto';
-        heroImage.style.bottom = 'auto';
-        heroImage.style.margin = '0';
-        heroImage.classList.remove('teleport-active');
-        heroImage.classList.remove('teleporting');
-    }
-
-    function teleportBlock() {
-        if (isTeleporting) return;
-        isTeleporting = true;
-        heroImage.classList.add('teleporting');
-        if (!heroImage.classList.contains('teleport-active')) {
-            heroImage.classList.add('teleport-active');
-        }
-
-        const sectionRect = heroSection.getBoundingClientRect();
-        const imageRect = heroImage.getBoundingClientRect();
-
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                if (i === 2) {
-                    const newPos = getRandomPosition();
-                    const safePos = getSafePosition(newPos.left, newPos.top, imageRect, sectionRect);
-                    heroImage.style.position = 'absolute';
-                    heroImage.style.left = safePos.left + 'px';
-                    heroImage.style.top = safePos.top + 'px';
-                    heroImage.style.right = 'auto';
-                    heroImage.style.bottom = 'auto';
-                    heroImage.style.margin = '0';
-                    setTimeout(() => {
-                        heroImage.classList.remove('teleporting');
-                        isTeleporting = false;
-                    }, 600);
-                } else {
-                    const ghost = heroImage.cloneNode(true);
-                    const ghostLeft = heroImage.offsetLeft + (i === 0 ? 20 : -20);
-                    const ghostTop = heroImage.offsetTop + (i === 0 ? 10 : -10);
-                    const ghostSafe = getSafePosition(ghostLeft, ghostTop, imageRect, sectionRect);
-                    ghost.style.position = 'absolute';
-                    ghost.style.left = ghostSafe.left + 'px';
-                    ghost.style.top = ghostSafe.top + 'px';
-                    ghost.style.opacity = '0.3';
-                    ghost.style.filter = `hue-rotate(${i * 120}deg)`;
-                    ghost.style.pointerEvents = 'none';
-                    ghost.style.zIndex = '50';
-                    ghost.classList.add('teleport-ghost');
-                    heroSection.appendChild(ghost);
-                    setTimeout(() => ghost.remove(), 300);
-                }
-            }, i * 100);
-        }
-    }
-
-    heroImage.addEventListener('mouseenter', teleportBlock);
-    heroImage.addEventListener('dblclick', resetPosition);
-
-    window.addEventListener('resize', () => {
-        if (heroImage.classList.contains('teleport-active')) resetPosition();
-    });
-
-    window.addEventListener('scroll', () => {
-        if (heroImage.classList.contains('teleport-active')) {
-            const sectionRect = heroSection.getBoundingClientRect();
-            const imageRect = heroImage.getBoundingClientRect();
-            if (imageRect.top < sectionRect.top || imageRect.bottom > sectionRect.bottom ||
-                imageRect.left < sectionRect.left || imageRect.right > sectionRect.right) {
-                resetPosition();
-            }
-        }
-    });
-
-    console.log('Телепортация настроена');
 }
 
 // ==========================================
@@ -323,10 +264,6 @@ function setupSmoothScroll() {
 let soundEnabled = true;
 let customAudio = null;
 
-// Настройка звука (поместите файл в папку sounds)
-const USE_CUSTOM_SOUND = true;  // true - использовать свой звук, false - синтезированный
-const CUSTOM_SOUND_URL = 'sounds/notification.mp3';
-
 function setupMotivationSlang() {
     const slangs = [
         { text: "🚀 Ты справишься!", side: "left" },
@@ -345,26 +282,20 @@ function setupMotivationSlang() {
     let audioContext = null;
     let isAudioInitialized = false;
 
-    // Создаём кнопку включения/выключения звука
-    const soundToggle = document.createElement('div');
-    soundToggle.className = 'sound-toggle';
-    soundToggle.innerHTML = '🔊';
-    soundToggle.title = 'Включить/выключить звук';
-    document.body.appendChild(soundToggle);
-
-    // Загружаем пользовательский звук если нужно
-    if (USE_CUSTOM_SOUND && CUSTOM_SOUND_URL) {
-        customAudio = new Audio(CUSTOM_SOUND_URL);
-        customAudio.volume = 0.3;
-        console.log('Загружен пользовательский звук');
+    const soundToggle = document.getElementById('soundToggle');
+    if (soundToggle) {
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+            soundToggle.title = soundEnabled ? 'Выключить звук' : 'Включить звук';
+        });
     }
 
     function initAudio() {
-        if (!isAudioInitialized && !USE_CUSTOM_SOUND) {
+        if (!isAudioInitialized) {
             try {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 isAudioInitialized = true;
-                console.log('Аудио контекст инициализирован');
             } catch(e) {
                 console.log('Звук не поддерживается браузером');
             }
@@ -373,11 +304,9 @@ function setupMotivationSlang() {
 
     function playSound() {
         if (!soundEnabled) return;
+        initAudio();
 
-        if (USE_CUSTOM_SOUND && customAudio) {
-            customAudio.currentTime = 0;
-            customAudio.play().catch(e => console.log('Ошибка воспроизведения звука:', e));
-        } else if (audioContext && isAudioInitialized) {
+        if (audioContext && isAudioInitialized) {
             try {
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
@@ -397,21 +326,7 @@ function setupMotivationSlang() {
         }
     }
 
-    soundToggle.addEventListener('click', () => {
-        soundEnabled = !soundEnabled;
-        soundToggle.innerHTML = soundEnabled ? '🔊' : '🔇';
-        soundToggle.title = soundEnabled ? 'Выключить звук' : 'Включить звук';
-
-        if (!isAudioInitialized && soundEnabled && !USE_CUSTOM_SOUND) {
-            initAudio();
-        }
-    });
-
     function showSlang() {
-        if (!isAudioInitialized && soundEnabled && !USE_CUSTOM_SOUND) {
-            initAudio();
-        }
-
         let availableSlangs = slangs;
         if (lastSide) {
             availableSlangs = slangs.filter(s => s.side !== lastSide);
@@ -445,7 +360,6 @@ function setupMotivationSlang() {
     }
 
     scheduleNext();
-    console.log('Мотивирующие сленги активированы! Появляются каждые 15-25 секунд');
 }
 
 // ==========================================
@@ -463,16 +377,71 @@ function setupSkillsViewToggle() {
         return;
     }
 
+    // Данные для бегущей строки (с иконками)
     const skillsData = [
-        { emoji: '🤖', title: 'Искусственный интеллект', description: 'Нейросети, машинное обучение, компьютерное зрение' },
-        { emoji: '☁️', title: 'Облачные технологии', description: 'AWS, Yandex Cloud, Docker, Kubernetes' },
-        { emoji: '🔐', title: 'Информационная безопасность', description: 'Криптография, защита данных, кибербезопасность' },
-        { emoji: '📱', title: 'Мобильная разработка', description: 'iOS, Android, Flutter, Kotlin, Swift' },
-        { emoji: '🌐', title: 'Web-разработка', description: 'React, Vue, Node.js, современные веб-приложения' },
-        { emoji: '🏢', title: 'Корпоративные системы', description: 'ERP/CRM, 1С, управление бизнес-процессами' }
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M12 8V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/>
+                  </svg>`,
+            title: 'Искусственный интеллект',
+            description: 'Нейросети, машинное обучение, компьютерное зрение'
+        },
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 16L12 20L18 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 12L12 16L18 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 8L12 12L18 8L12 4L6 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>`,
+            title: 'Облачные технологии',
+            description: 'AWS, Yandex Cloud, Docker, Kubernetes'
+        },
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3L4 7V13C4 17.5 7.5 21 12 22C16.5 21 20 17.5 20 13V7L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="15" r="0.5" fill="currentColor"/>
+                  </svg>`,
+            title: 'Информационная безопасность',
+            description: 'Криптография, защита данных, кибербезопасность'
+        },
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M9 5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M12 18C13.1046 18 14 17.1046 14 16C14 14.8954 13.1046 14 12 14C10.8954 14 10 14.8954 10 16C10 17.1046 10.8954 18 12 18Z" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M12 18V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>`,
+            title: 'Мобильная разработка',
+            description: 'iOS, Android, Flutter, Kotlin, Swift'
+        },
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M12 13V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M12 9H12.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M2 5L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M22 5L18 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M2 19L6 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M22 19L18 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>`,
+            title: 'Web-разработка',
+            description: 'React, Vue, Node.js, современные веб-приложения'
+        },
+        {
+            icon: `<svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 8H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M8 12H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M16 16H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>`,
+            title: 'Корпоративные системы',
+            description: 'ERP/CRM, 1С, управление бизнес-процессами'
+        }
     ];
 
-    // Заполняем бегущую строку, если она пустая
+    // Заполняем бегущую строку
     if (marqueeTrack && marqueeTrack.children.length === 0) {
         let itemsHTML = '';
         // Дублируем 3 раза для бесконечной прокрутки
@@ -480,8 +449,10 @@ function setupSkillsViewToggle() {
             skillsData.forEach(skill => {
                 itemsHTML += `
                     <div class="marquee-item">
-                        <div class="emoji">${skill.emoji}</div>
-                        <h3>${skill.title}</h3>
+                        <div class="skill-icon-wrapper">
+                            ${skill.icon}
+                        </div>
+                        <div class="skill-name">${skill.title}</div>
                         <p>${skill.description}</p>
                     </div>
                 `;
@@ -570,7 +541,7 @@ function setupSkillsViewToggle() {
         console.log('Переключено на бегущую строку');
     });
 
-    // Пауза при наведении на контейнер
+    // Пауза при наведении
     marqueeContainer.addEventListener('mouseenter', () => {
         if (marqueeContainer.classList.contains('active')) {
             isPaused = true;
@@ -584,4 +555,199 @@ function setupSkillsViewToggle() {
     });
 
     console.log('Режимы отображения настроены!');
+}
+
+// =============================
+// ТЕЛЕПОРТАЦИЯ БЛОКА С ЦИТАТОЙ
+// =============================
+function setupHeroImageTeleport() {
+    const heroImage = document.querySelector('.hero .hero-image');
+    const heroSection = document.querySelector('.hero');
+    const heroText = document.querySelector('.hero-text');
+
+    if (!heroImage || !heroSection || !heroText) return;
+
+    let isTeleporting = false;
+    let originalTransform = '';
+
+    // Сохраняем исходное положение
+    function saveOriginalPosition() {
+        originalTransform = heroImage.style.transform || '';
+    }
+
+    function resetPosition() {
+        if (!heroImage.classList.contains('teleport-active')) return;
+
+        heroImage.style.transform = originalTransform;
+        heroImage.style.transition = '';
+        heroImage.classList.remove('teleport-active');
+        heroImage.classList.remove('teleporting');
+
+        void heroImage.offsetHeight;
+    }
+
+    function teleportBlock() {
+        // Отключаем на мобильных устройствах
+        if (window.innerWidth <= 768) return;
+
+        if (isTeleporting) return;
+        isTeleporting = true;
+
+        saveOriginalPosition();
+        heroImage.classList.add('teleporting');
+        heroImage.classList.add('teleport-active');
+
+        // Получаем размеры
+        const imageRect = heroImage.getBoundingClientRect();
+        const textRect = heroText.getBoundingClientRect();
+
+        // НАСТРОЙКИ СМЕЩЕНИЯ
+        const maxOffsetX = 100;    // Максимум ВЛЕВО (отрицательное значение)
+        const maxOffsetY = 70;     // Максимум ВВЕРХ и ВНИЗ
+
+        // Выбираем направление:
+        // - по X: только ВЛЕВО (от 0 до -maxOffsetX)
+        // - по Y: ВВЕРХ или ВНИЗ (случайно)
+        const offsetX = -Math.random() * maxOffsetX; // ТОЛЬКО ВЛЕВО!
+
+        // Направление по Y: случайно вверх или вниз
+        const directionY = Math.random() > 0.5 ? 1 : -1;
+        const offsetY = directionY * Math.random() * maxOffsetY;
+
+        // Проверка: не наезжает ли на текст
+        const newLeft = imageRect.left + offsetX;
+        const newTop = imageRect.top + offsetY;
+        const textCenterX = textRect.left + textRect.width / 2;
+        const textCenterY = textRect.top + textRect.height / 2;
+        const imageCenterX = newLeft + imageRect.width / 2;
+        const imageCenterY = newTop + imageRect.height / 2;
+        const distance = Math.hypot(imageCenterX - textCenterX, imageCenterY - textCenterY);
+
+        // Если слишком близко к тексту, корректируем по Y
+        let finalOffsetX = offsetX;
+        let finalOffsetY = offsetY;
+
+        if (distance < 150) {
+            // Отодвигаем в противоположную сторону по Y
+            finalOffsetY = offsetY > 0 ? -maxOffsetY / 2 : maxOffsetY / 2;
+        }
+
+        // Применяем смещение через transform
+        heroImage.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        heroImage.style.transform = `translate(${finalOffsetX}px, ${finalOffsetY}px)`;
+
+        // Эффект "призрака"
+        for (let i = 0; i < 2; i++) {
+            setTimeout(() => {
+                const ghost = heroImage.cloneNode(true);
+                ghost.style.position = 'fixed';
+                ghost.style.left = imageRect.left + 'px';
+                ghost.style.top = imageRect.top + 'px';
+                ghost.style.width = imageRect.width + 'px';
+                ghost.style.opacity = '0.25';
+                ghost.style.pointerEvents = 'none';
+                ghost.style.zIndex = '999';
+                ghost.style.transform = `translate(${finalOffsetX + (i === 0 ? -10 : 10)}px, ${finalOffsetY + (i === 0 ? -8 : 8)}px)`;
+                ghost.style.filter = `hue-rotate(${i * 180}deg)`;
+                document.body.appendChild(ghost);
+                setTimeout(() => ghost.remove(), 200);
+            }, i * 80);
+        }
+
+        setTimeout(() => {
+            heroImage.classList.remove('teleporting');
+            isTeleporting = false;
+        }, 400);
+    }
+
+    // Возврат на место при двойном клике
+    heroImage.addEventListener('dblclick', () => {
+        resetPosition();
+    });
+
+    // Телепортация при наведении
+    heroImage.addEventListener('mouseenter', teleportBlock);
+
+    // Возврат на место при уходе мыши
+    heroImage.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+            if (!isTeleporting) {
+                resetPosition();
+            }
+        }, 100);
+    });
+
+    // При изменении размера окна сбрасываем позицию
+    window.addEventListener('resize', () => {
+        resetPosition();
+        heroImage.style.transform = '';
+        heroImage.style.transition = '';
+    });
+}
+
+// ==========================================
+// УМНАЯ ШАПКА (СКРЫВАЕТСЯ ПРИ СКРОЛЛЕ ВНИЗ)
+// ==========================================
+function setupSmartHeader() {
+    const header = document.querySelector('.nav-bar');
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+
+        // Определяем направление скролла
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Скроллим ВНИЗ — скрываем шапку
+            header.classList.add('hidden');
+        } else if (currentScrollY < lastScrollY) {
+            // Скроллим ВВЕРХ — показываем шапку
+            header.classList.remove('hidden');
+        }
+
+        // Если мы в самом верху страницы, всегда показываем шапку
+        if (currentScrollY <= 10) {
+            header.classList.remove('hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+    }
+
+    // Оптимизация с requestAnimationFrame
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(handleScroll);
+            ticking = true;
+        }
+    });
+
+    console.log('Умная шапка активирована');
+}
+
+// ==========================================
+// КНОПКА НАВЕРХ
+// ==========================================
+function setupScrollTop() {
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    if (!scrollBtn) return;
+
+    // Показываем/скрываем кнопку при скролле
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+
+    // Плавный скролл наверх при клике
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
