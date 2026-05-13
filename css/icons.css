@@ -1,0 +1,41 @@
+/* ==========================================
+   SVG ИКОНКИ В КРУГЛОЙ ПОДЛОЖКЕ
+   ========================================== */
+
+.icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+/* Тёмная тема */
+:root[data-theme="dark"] .icon {
+    stroke: #00ff9d;
+    color: #00ff9d;
+}
+
+:root[data-theme="dark"] .icon path,
+:root[data-theme="dark"] .icon circle,
+:root[data-theme="dark"] .icon rect {
+    stroke: #00ff9d;
+}
+
+:root[data-theme="dark"] .icon circle:not([stroke]) {
+    fill: #00ff9d;
+}
+
+/* Светлая тема */
+:root[data-theme="light"] .icon {
+    stroke: #0066cc;
+    color: #0066cc;
+}
+
+:root[data-theme="light"] .icon path,
+:root[data-theme="light"] .icon circle,
+:root[data-theme="light"] .icon rect {
+    stroke: #0066cc;
+}
+
+:root[data-theme="light"] .icon circle:not([stroke]) {
+    fill: #0066cc;
+}
