@@ -31,7 +31,14 @@ h1 {
     text-transform: uppercase;
     letter-spacing: -0.03em;
     margin-bottom: 1rem;
+}
+
+:root[data-theme="dark"] h1 {
     text-shadow: 0 0 10px rgba(0,255,0,0.3);
+}
+
+:root[data-theme="light"] h1 {
+    text-shadow: none;
 }
 
 h2 {
@@ -40,7 +47,14 @@ h2 {
     line-height: 1.2;
     margin-bottom: 2rem;
     letter-spacing: -0.02em;
+}
+
+:root[data-theme="dark"] h2 {
     text-shadow: 0 0 8px rgba(0,255,0,0.2);
+}
+
+:root[data-theme="light"] h2 {
+    text-shadow: none;
 }
 
 .section-tag {
@@ -53,10 +67,169 @@ h2 {
     margin-bottom: 1rem;
     border-left: 3px solid var(--accent-green);
     padding-left: 10px;
+}
+
+:root[data-theme="dark"] .section-tag {
     text-shadow: 0 0 5px rgba(0,255,157,0.5);
 }
 
 .section-tag.light {
     color: #fff;
     border-left-color: #fff;
+}
+
+:root[data-theme="light"] .section-tag.light {
+    color: white;
+    border-left-color: white;
+}
+
+/* Стили для всех секций в светлой теме */
+:root[data-theme="light"] .target-section,
+:root[data-theme="light"] .state-section,
+:root[data-theme="light"] .skills-section,
+:root[data-theme="light"] .stages-section,
+:root[data-theme="light"] .competencies-section,
+:root[data-theme="light"] .career-section,
+:root[data-theme="light"] .faq-section {
+    background: var(--bg-primary);
+    backdrop-filter: none;
+}
+
+:root[data-theme="light"] .target-section,
+:root[data-theme="light"] .skills-section,
+:root[data-theme="light"] .stages-section,
+:root[data-theme="light"] .competencies-section,
+:root[data-theme="light"] .faq-section {
+    background: #ffffff;
+}
+
+:root[data-theme="light"] .state-section,
+:root[data-theme="light"] .career-section {
+    background: #f0f2f5;
+}
+
+/* Карточки в светлой теме */
+:root[data-theme="light"] .target-item,
+:root[data-theme="light"] .state-card,
+:root[data-theme="light"] .skill-item,
+:root[data-theme="light"] .stage-card,
+:root[data-theme="light"] .competency-item,
+:root[data-theme="light"] .career-card,
+:root[data-theme="light"] .faq-item {
+    background: #ffffff;
+    backdrop-filter: none;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .target-item:hover,
+:root[data-theme="light"] .state-card:hover,
+:root[data-theme="light"] .skill-item:hover,
+:root[data-theme="light"] .stage-card:hover,
+:root[data-theme="light"] .competency-item:hover,
+:root[data-theme="light"] .career-card:hover,
+:root[data-theme="light"] .faq-item:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+/* ==========================================
+   РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ
+   ========================================== */
+
+/* Общие стили для режима слабовидящих */
+.visual-mode-active {
+    font-size: 18px;
+    overflow-x: hidden;
+}
+
+.visual-mode-active * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Увеличение шрифтов */
+.visual-mode-active h1 {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+}
+
+.visual-mode-active h2 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+.visual-mode-active p,
+.visual-mode-active li,
+.visual-mode-active .skill-item,
+.visual-mode-active .target-item,
+.visual-mode-active .competency-item,
+.visual-mode-active .stage-card p,
+.visual-mode-active .faq-item p,
+.visual-mode-active .career-card p,
+.visual-mode-active .hero-description {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.visual-mode-active .btn-primary,
+.visual-mode-active .nav-question-btn {
+    font-size: 1.1rem;
+    padding: 12px 28px;
+}
+
+.visual-mode-active .hero-stats-mini span {
+    font-size: 0.95rem;
+    padding: 8px 16px;
+}
+
+/* Фикс для заголовка в режиме для слабовидящих — без разрывов слов */
+.visual-mode-active .hero h1 {
+    display: block;
+    text-align: center;
+}
+
+.visual-mode-active .hero h1 .glitch-word {
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+}
+
+.visual-mode-active .hero h1 br {
+    display: inline;
+}
+
+/* Для мобилок в режиме слабовидящих */
+@media (max-width: 768px) {
+    .visual-mode-active .hero h1 .glitch-word {
+        white-space: normal;
+        word-break: keep-all;
+        display: block;
+    }
+
+    .visual-mode-active .hero h1 br {
+        display: none;
+    }
+
+    .visual-mode-active h1 {
+        font-size: 2.5rem;
+    }
+
+    .visual-mode-active h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .visual-mode-active h1 {
+        font-size: 2rem;
+    }
+
+    .visual-mode-active h2 {
+        font-size: 1.6rem;
+    }
+
+    .visual-mode-active p,
+    .visual-mode-active .skill-item,
+    .visual-mode-active .target-item {
+        font-size: 1rem;
+    }
 }
