@@ -42,7 +42,7 @@
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
 }
 
-/* Сетка */
+/* Сетка навыков */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -54,17 +54,16 @@
     display: none;
 }
 
+/* Стиль карточки навыка */
 .skill-item {
     background: rgba(0,255,0,0.05);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(0,255,0,0.2);
     border-radius: 30px;
-    padding: 20px;
-    font-weight: 600;
+    padding: 25px;
     text-align: center;
-    font-size: 1.1rem;
-    cursor: pointer;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .skill-item:hover {
@@ -74,8 +73,44 @@
     box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
 }
 
+/* Круглая подложка для иконки */
+.skill-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px auto;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+}
+
+.skill-item:hover .skill-icon-wrapper {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: #00ff9d;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+}
+
+/* Иконка внутри подложки */
+.skill-icon-wrapper .icon {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+}
+
+/* Текст навыка */
+.skill-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
 /* ==========================================
-   БЕГУЩАЯ СТРОКА - БЕЗ ГОРИЗОНТАЛЬНОГО СКРОЛЛА
+   БЕГУЩАЯ СТРОКА (СТАРЫЙ РАБОЧИЙ ВАРИАНТ)
    ========================================== */
 .skills-marquee {
     display: none;
@@ -117,7 +152,6 @@
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
-    position: relative;
 }
 
 .marquee-item:hover {
@@ -128,28 +162,87 @@
     z-index: 10;
 }
 
-.marquee-item .emoji {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 20px;
-    animation: float 3s ease-in-out infinite;
+/* Подложка иконки в бегущей строке */
+.marquee-item .skill-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px auto;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 255, 157, 0.3);
 }
 
-.marquee-item h3 {
-    font-size: 1.5rem;
+.marquee-item:hover .skill-icon-wrapper {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: #00ff9d;
+    transform: scale(1.05);
+}
+
+.marquee-item .skill-name {
+    font-size: 1.2rem;
     color: #00ff9d;
     margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .marquee-item p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #b0b0b0;
     line-height: 1.5;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+/* Светлая тема для сетки */
+:root[data-theme="light"] .skill-item {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .skill-item:hover {
+    border-color: #0066cc;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+:root[data-theme="light"] .skill-icon-wrapper {
+    background: rgba(0, 102, 204, 0.1);
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    box-shadow: none;
+}
+
+:root[data-theme="light"] .skill-item:hover .skill-icon-wrapper {
+    background: rgba(0, 102, 204, 0.15);
+    border-color: #0066cc;
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.2);
+}
+
+/* Светлая тема для бегущей строки */
+:root[data-theme="light"] .marquee-item {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .marquee-item:hover {
+    border-color: #0066cc;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] .marquee-item .skill-icon-wrapper {
+    background: rgba(0, 102, 204, 0.1);
+    border: 1px solid rgba(0, 102, 204, 0.3);
+}
+
+:root[data-theme="light"] .marquee-item .skill-name {
+    color: #0066cc;
+}
+
+:root[data-theme="light"] .marquee-item p {
+    color: #4a4a6a;
 }
 
 /* Адаптив */
@@ -159,18 +252,99 @@
     }
 }
 
-@media (max-width: 600px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 768px) {
     .marquee-item {
         width: 280px;
         padding: 30px 20px;
     }
-    .marquee-item .emoji {
-        font-size: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
     }
-    .marquee-item h3 {
-        font-size: 1.2rem;
+
+    .skill-icon-wrapper {
+        width: 60px;
+        height: 60px;
     }
+
+    .skill-icon-wrapper .icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .marquee-item {
+        width: 260px;
+        padding: 25px 15px;
+    }
+
+    .marquee-item .skill-icon-wrapper {
+        width: 55px;
+        height: 55px;
+    }
+
+    .marquee-item .skill-name {
+        font-size: 1rem;
+    }
+
+    .marquee-item p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Светлая тема для кнопок переключения */
+:root[data-theme="light"] .toggle-btn {
+    background: #f0f2f5;
+    border: 1px solid #0066cc;
+    color: #0066cc;
+}
+
+:root[data-theme="light"] .toggle-btn:hover {
+    background: rgba(0, 102, 204, 0.1);
+    border-color: #0066cc;
+    box-shadow: 0 5px 15px rgba(0, 102, 204, 0.2);
+}
+
+:root[data-theme="light"] .toggle-btn.active {
+    background: #0066cc;
+    border-color: #0066cc;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.5);
+}
+
+/* Светлая тема для контейнера бегущей строки */
+:root[data-theme="light"] .skills-marquee {
+    background: #f0f2f5;
+    border-radius: 30px;
+}
+
+:root[data-theme="light"] .marquee-item {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .marquee-item:hover {
+    border-color: #0066cc;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+:root[data-theme="light"] .marquee-item .skill-icon-wrapper {
+    background: rgba(0, 102, 204, 0.1);
+    border: 1px solid rgba(0, 102, 204, 0.3);
+}
+
+:root[data-theme="light"] .marquee-item:hover .skill-icon-wrapper {
+    background: rgba(0, 102, 204, 0.15);
+    border-color: #0066cc;
+}
+
+:root[data-theme="light"] .marquee-item .skill-name {
+    color: #0066cc;
+}
+
+:root[data-theme="light"] .marquee-item p {
+    color: #4a4a6a;
 }
