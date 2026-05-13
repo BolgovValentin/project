@@ -1,52 +1,8 @@
 /* ================
    МАТРИЧНЫЙ ФОН
    ==============*/
-.matrix-css-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #0a0f1a 0%, #141c2c 100%);
-    z-index: -2;
-}
 
-.matrix-css-bg::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-            repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 50px,
-                    rgba(0, 255, 0, 0.1) 50px,
-                    rgba(0, 255, 0, 0.1) 51px
-            ),
-            repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 50px,
-                    rgba(0, 255, 0, 0.1) 50px,
-                    rgba(0, 255, 0, 0.1) 51px
-            );
-    background-size: 60px 60px;
-    pointer-events: none;
-    animation: matrixMove 20s linear infinite;
-}
-
-@keyframes matrixMove {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 60px 60px;
-    }
-}
-
+/* ТЁМНАЯ ТЕМА (по умолчанию) — бинарный код */
 .matrix-js-bg {
     position: fixed;
     top: 0;
@@ -65,8 +21,8 @@
     font-size: 32px;
     line-height: 38px;
     white-space: pre;
-    opacity: 0.25;
-    text-shadow: 0 0 12px #00ff9d, 0 0 20px #00ff00;
+    opacity: 0.2;
+    text-shadow: 0 0 8px #00ff9d;
     font-weight: bold;
     letter-spacing: 2px;
     animation: matrixFall linear infinite;
@@ -95,9 +51,23 @@
     }
 }
 
+:root[data-theme="light"] .matrix-js-bg {
+    opacity: 0;
+    visibility: hidden;
+}
+
 @media (max-width: 768px) {
     .matrix-column {
-        font-size: 24px;
-        line-height: 28px;
+        font-size: 26px;
+        line-height: 32px;
+        opacity: 0.15;
+    }
+}
+
+@media (max-width: 480px) {
+    .matrix-column {
+        font-size: 20px;
+        line-height: 26px;
+        opacity: 0.12;
     }
 }
