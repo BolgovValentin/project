@@ -9,18 +9,21 @@
 
 .stages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     margin-top: 40px;
 }
 
 .stage-card {
-    background: rgba(0,255,0,0.05);
+    background: var(--card-bg);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(0,255,0,0.2);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     padding: 30px;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .stage-card:hover {
@@ -30,10 +33,11 @@
 }
 
 .stage-number {
-    font-size: 1rem;
+    font-size: 0.85rem;
     letter-spacing: 0.2em;
     color: var(--accent-green);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
 }
 
 .stage-card h3 {
@@ -42,17 +46,67 @@
     color: var(--accent-green);
 }
 
+.stage-card p {
+    flex-grow: 1;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* ВЫРАВНИВАНИЕ ТЕГОВ НА ОДНОМ УРОВНЕ */
 .stage-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 15px;
+    margin-top: auto;
+    align-items: flex-start;
 }
 
 .stage-tags span {
-    background: rgba(0,255,0,0.2);
-    padding: 4px 12px;
+    background: rgba(0, 255, 0, 0.15);
+    padding: 6px 14px;
     border-radius: var(--radius-sm);
     font-size: 0.8rem;
     color: var(--accent-green);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+:root[data-theme="light"] .stage-tags span {
+    background: rgba(0, 102, 204, 0.1);
+    color: #0066cc;
+}
+
+.stage-tags span:hover {
+    background: rgba(0, 255, 0, 0.3);
+    transform: scale(1.02);
+}
+
+/* Адаптив для планшетов */
+@media (max-width: 768px) {
+    .stages-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stage-tags {
+        gap: 8px;
+    }
+
+    .stage-tags span {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+        white-space: normal;
+        word-break: keep-all;
+    }
+}
+
+@media (max-width: 480px) {
+    .stage-card {
+        padding: 20px;
+    }
+
+    .stage-card h3 {
+        font-size: 1.3rem;
+    }
 }
