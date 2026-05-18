@@ -166,7 +166,7 @@
 /* Мобильная адаптация */
 @media (max-width: 768px) {
     .hero {
-        padding: 120px 0 60px;
+        padding: 100px 0 60px;
         min-height: auto;
     }
 
@@ -178,6 +178,7 @@
     .hero-text {
         text-align: center;
         order: 1;
+        padding-top: 10px;
     }
 
     .hero-sup {
@@ -240,7 +241,7 @@
 
 @media (max-width: 480px) {
     .hero {
-        padding: 110px 0 50px;
+        padding: 100px 0 50px;
     }
 
     h1 {
