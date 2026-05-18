@@ -308,3 +308,18 @@
         font-size: 1.1rem;
     }
 }
+
+/* Светлая тема на мобилках — убираем тень у квадрата */
+@media (max-width: 768px) {
+    :root[data-theme="light"] .hero .hero-image {
+        box-shadow: none;
+    }
+
+    :root[data-theme="light"] .hero .hero-image:hover {
+        box-shadow: none;
+    }
+
+    :root[data-theme="light"] .hero-quote {
+        text-shadow: none;
+    }
+}
