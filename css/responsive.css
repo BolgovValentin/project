@@ -30,75 +30,10 @@ html, body {
         padding: 0 20px;
     }
 
-    /* Исправление навигации */
-    .nav-bar .container {
-        flex-direction: column;
-        gap: 12px;
-        padding: 15px 20px;
-    }
-
-    .nav-logo img {
-        height: 35px;
-    }
-
-    .nav-menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .nav-menu a {
-        font-size: 0.9rem;
-        padding: 5px 0;
-    }
-
-    .nav-question-btn {
-        padding: 6px 16px;
-        font-size: 0.85rem;
-    }
-
-    /* Герой секция */
-    .hero {
-        padding: 80px 0 60px;
-        min-height: auto;
-    }
-
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .hero-text {
-        text-align: center;
-        order: 1;
-    }
-
-    .hero-stats-mini {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .hero .hero-image {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 40px;
-        order: 2;
-    }
-
-    .hero-quote {
-        font-size: 1.5rem;
-        text-align: center;
-    }
-
     /* Сетки */
     .target-grid {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-
-    .target-item:last-child {
-        grid-column: auto;
     }
 
     .state-grid {
@@ -367,30 +302,6 @@ html, body {
 
     .nav-menu a {
         min-height: auto;
-    }
-}
-
-/* Дополнительные фиксы для мобильной версии */
-@media (max-width: 768px) {
-    /* Общие фиксы для всех секций */
-    section {
-        overflow-x: hidden;
-    }
-
-    .container {
-        padding: 0 20px;
-        overflow-x: hidden;
-    }
-
-    /* Фикс для текста в hero */
-    .hero-text {
-        width: 100%;
-        overflow-x: visible;
-    }
-
-    .hero-text * {
-        max-width: 100%;
-        word-break: break-word;
     }
 }
 
