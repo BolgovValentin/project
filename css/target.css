@@ -42,5 +42,26 @@
 }
 
 .target-item:last-child {
-    grid-column: 2 / 3;
+    grid-column: auto;
+}
+
+/* Адаптив для планшетов */
+@media (max-width: 900px) {
+    .target-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+/* Адаптив для мобилок */
+@media (max-width: 600px) {
+    .target-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .target-item {
+        padding: 20px;
+        font-size: 1rem;
+    }
 }
