@@ -214,6 +214,16 @@
         order: 2;
         cursor: default;
         box-sizing: border-box;
+        box-shadow: none;
+        text-shadow: none;
+    }
+
+    .hero .hero-image .hero-quote {
+        text-shadow: none;
+    }
+
+    .hero .hero-image:hover {
+        box-shadow: none;
     }
 
     .hero-quote {
